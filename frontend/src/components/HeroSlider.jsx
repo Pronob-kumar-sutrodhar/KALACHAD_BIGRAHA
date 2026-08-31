@@ -2,19 +2,37 @@ import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { FaOm, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
+import api from '../services/api'
 
 const SLIDE_DURATION = 7000
 
 export default function HeroSlider({ onDonateClick }) {
   const [current, setCurrent] = useState(0)
   const [progress, setProgress] = useState(0)
+  const [settings, setSettings] = useState(null)
   const { language, t } = useLanguage()
+
+  useEffect(() => {
+    api.get('/api/settings')
+      .then((res) => {
+        if (res.data) setSettings(res.data)
+      })
+      .catch(() => {})
+  }, [])
+
+  const slide1Title = language === 'bn'
+    ? (settings?.heroSlide1TitleBn || 'আত্মার পরম শান্তি ও\nভক্তির পুণ্যভূমি')
+    : (settings?.heroSlide1TitleEn || 'Strength lies not in the body,\nbut in the spirit.')
+
+  const slide1Subtitle = language === 'bn'
+    ? (settings?.heroSlide1SubtitleBn || 'পরম করুণাময় শ্রী শ্রী রাধাকৃষ্ণ')
+    : (settings?.heroSlide1SubtitleEn || 'Krishna Embodies Divine Love')
 
   const slides = [
     {
       id: 1,
-      subtitle: language === 'bn' ? 'পরম করুণাময় শ্রী শ্রী রাধাকৃষ্ণ' : 'Krishna Embodies Divine Love',
-      title: language === 'bn' ? 'আত্মার পরম শান্তি ও\nভক্তির পুণ্যভূমি' : 'Strength lies not in the body,\nbut in the spirit.',
+      subtitle: slide1Subtitle,
+      title: slide1Title,
       image: '/assets/img/banner/s1.webp',
       primaryBtn: { text: language === 'bn' ? 'পূজা সংকল্প বুকিং' : 'Explore Temple', link: '/events' },
       secondaryBtn: { text: language === 'bn' ? 'অন্নদান সেবা দিন' : 'Make Donation', link: '/donations' },
@@ -63,7 +81,7 @@ export default function HeroSlider({ onDonateClick }) {
   }, [nextSlide])
 
   return (
-    <section className="relative w-full h-[620px] sm:h-[720px] lg:h-[780px] overflow-hidden bg-temple-primary select-none">
+    <section className="relative w-full h-[620px] sm:h-[720px] lg:h-[780px] overflow-hidden bg-temple-primary select-none font-poppins">
       {/* ── Slide Backgrounds with Ken Burns ── */}
       {slides.map((slide, idx) => (
         <div

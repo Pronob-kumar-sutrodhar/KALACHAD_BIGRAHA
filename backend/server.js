@@ -1,5 +1,8 @@
-const express = require('express');
 const dotenv = require('dotenv');
+// Load environment variables immediately before any routes or controllers are imported
+dotenv.config();
+
+const express = require('express');
 const cors = require('cors');
 require('colors');
 
@@ -15,9 +18,7 @@ const blogRoutes = require('./routes/blogRoutes');
 const pujaRoutes = require('./routes/pujaRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const contactRoutes = require('./routes/contactRoutes');
-
-// Load env vars
-dotenv.config();
+const settingRoutes = require('./routes/settingRoutes');
 
 // Connect to MongoDB
 connectDB();
@@ -49,6 +50,7 @@ app.use('/api/blogs', blogRoutes);
 app.use('/api/pujas', pujaRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/settings', settingRoutes);
 
 // Health check
 app.get('/', (req, res) => {

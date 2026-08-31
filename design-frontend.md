@@ -16,6 +16,24 @@
 
 ---
 
+## Complete Admin Management Portal & CMS (`/admin`)
+
+The frontend includes a full-featured, responsive, production-ready Admin CMS enabling temple management to edit, create, and delete everything on the frontend in real time:
+
+| Route | Page Component | Features & Management Powers |
+| :--- | :--- | :--- |
+| `/admin` | `AdminDashboardPage.jsx` | KPI metric cards (Donations in BDT, Store revenue in BDT, Active Puja Bookings, RSVPs), quick actions, recent orders, recent donations, and recent inquiry tables. |
+| `/admin/products` | `AdminProductsPage.jsx` | Full CRUD catalog management (Add, Edit, Delete, Stock count & status, Price in BDT, Image URLs, description). |
+| `/admin/donations` | `AdminDonationsPage.jsx` | Full CRUD seva campaigns (Title, Category, Target Goal in BDT, Raised in BDT, Progress bar, Image) + **Donor Inspection Modal** with 80G tax receipt IDs. |
+| `/admin/pujas` | `AdminPujasPage.jsx` | **Tab 1**: Puja Offerings CRUD (Title, Category, Dakshina in BDT, Schedule, Description); **Tab 2**: Devotee Puja Bookings with status update toggle (`Confirmed` / `Completed` / `Cancelled`) and deletion. |
+| `/admin/events` | `AdminEventsPage.jsx` | **Tab 1**: Festival Calendar CRUD (Title, Category, Date, Time, Location, Priest, Image, Description); **Tab 2**: Devotee RSVPs & Headcount list. |
+| `/admin/blogs` | `AdminBlogsPage.jsx` | Full CRUD spiritual articles (Title, Author, Category, Tags, Content Markdown, Image) + Comments moderation. |
+| `/admin/orders` | `AdminOrdersPage.jsx` | Live store orders table, customer shipping addresses, product items breakdown, BDT total, "Mark as Paid", "Mark as Delivered", and deletion. |
+| `/admin/inquiries` | `AdminInquiriesPage.jsx` | Devotee contact messages, spiritual guidance questions, prayer requests, and newsletter subscriber list. |
+| `/admin/settings` | `AdminSettingsPage.jsx` | Site-wide CMS settings (Temple Helpline Phone, Email, Physical Address, Opening Hours, Live Darshan YouTube Embed Stream, Sanskrit Marquee ticker text, Hero Banner Title & Subtitle). |
+
+---
+
 ## Local Devotional Audio Suite (`/public/assets/audio/`)
 
 | File Name | Bengali Track Title | English Track Title | Artist / Tradition | Size |
@@ -55,31 +73,6 @@
 
 ---
 
-## Typography Hierarchy
-
-| Element | Font Family | Size | Weight | Color Token |
-| :--- | :--- | :--- | :--- | :--- |
-| **Main Page Titles / Hero** | `Noto Serif Bengali` / `Lora`, serif | `text-4xl` to `text-6xl` | `font-bold` | `text-white` / `temple-primary` |
-| **Section Headings** | `Noto Serif Bengali` / `Lora`, serif | `text-3xl` to `text-4xl` | `font-bold` | `temple-primary` |
-| **Section Subtitles / Mantras** | `Hind Siliguri` / `Poppins`, sans-serif | `text-xs` to `text-sm` | `font-semibold` | `temple-accent` / `temple-gold` |
-| **Card Headings** | `Noto Serif Bengali` / `Lora`, serif | `text-lg` to `text-xl` | `font-bold` | `temple-primary` |
-| **Buttons & CTAs** | `Noto Serif Bengali` / `Lora`, serif | `text-xs` to `text-sm` | `font-bold` (uppercase) | `text-white` |
-| **Body & Narrative** | `Hind Siliguri` / `Poppins`, sans-serif | `text-xs` to `text-base` | `font-normal` | `text-gray-600` |
-| **Marquee Sanskrit Ticker** | `Noto Serif Bengali` / `Lora`, serif | `text-sm` | `font-semibold` | `text-white/80` |
-
----
-
-## Visual Keyframe Animations
-
-1. **Ken Burns Zoom (`animate-kr-zoom`)**:
-   Slow scale from `scale(1)` to `scale(1.08)` over 8 seconds on hero background images.
-2. **Rising Gold Particles (`kr-particles`)**:
-   Floating glowing particle canvas overlay with keyframes rising from bottom to top with opacity fade.
-3. **Infinite Marquee Ticker (`kr-gods-marquee`)**:
-   Continuous smooth horizontal marquee loop displaying sacred Bengali Sanskrit mantras.
-
----
-
 ## Component Architecture
 
 ```
@@ -88,17 +81,17 @@ App.jsx
 │   ├── CartProvider (CartContext)
 │   │   └── AuthProvider (AuthContext)
 │   │       └── BrowserRouter
-│   │           ├── Navbar (Topbar + Language Switcher + Main Navigation + Mobile Drawer)
-│   │           ├── Routes:
-│   │           │   ├── / -> HomePage (HeroSlider, GodsTicker, AboutSection, PujaSection, FestivalBanner, DonationSection, ShopSection, DevotionalBanner2, LiveBroadcastSection, VolunteersSection, InstagramSection, CtaBanner)
+│   │           ├── Navbar (Topbar + Language Switcher + Admin Button + Main Navigation + Mobile Drawer)
+│   │           ├── Public Routes:
+│   │           │   ├── / -> HomePage
 │   │           │   ├── /about -> AboutPage
 │   │           │   ├── /pujas -> (PujaSection & Bookings)
 │   │           │   ├── /donations -> DonationsPage
 │   │           │   ├── /donations/:id -> DonationDetailPage
-│   │           │   ├── /shop -> ShopPage (with BDT filters & QuickView)
+│   │           │   ├── /shop -> ShopPage
 │   │           │   ├── /product/:id -> ProductDetailPage
 │   │           │   ├── /cart -> CartPage
-│   │           │   ├── /checkout -> CheckoutPage (with BDT calculations)
+│   │           │   ├── /checkout -> CheckoutPage
 │   │           │   ├── /events -> EventsPage
 │   │           │   ├── /events/:id -> EventDetailPage
 │   │           │   ├── /blog -> BlogPage
@@ -107,9 +100,31 @@ App.jsx
 │   │           │   ├── /faq -> FAQPage
 │   │           │   ├── /contact -> ContactPage
 │   │           │   └── /login -> LoginPage
+│   │           ├── Admin Routes (/admin):
+│   │           │   ├── /admin -> AdminDashboardPage
+│   │           │   ├── /admin/products -> AdminProductsPage
+│   │           │   ├── /admin/donations -> AdminDonationsPage
+│   │           │   ├── /admin/pujas -> AdminPujasPage
+│   │           │   ├── /admin/events -> AdminEventsPage
+│   │           │   ├── /admin/blogs -> AdminBlogsPage
+│   │           │   ├── /admin/orders -> AdminOrdersPage
+│   │           │   ├── /admin/inquiries -> AdminInquiriesPage
+│   │           │   └── /admin/settings -> AdminSettingsPage
 │   │           ├── QuickDonateModal
 │   │           ├── QuickViewModal
 │   │           ├── BookPujaModal
 │   │           ├── FloatingAudioPlayer (7 Local Devotional Tracks)
 │   │           └── Footer
 ```
+
+---
+
+## Netlify Production Deployment Configuration
+
+- **Build Base**: `frontend`
+- **Build Command**: `npm run build`
+- **Publish Directory**: `frontend/dist`
+- **SPA Client-Side Routing**: Configured in `frontend/public/_redirects` (`/*  /index.html  200`) and `netlify.toml`
+- **Environment Variables**:
+  - `VITE_API_URL`: URL of the deployed backend server (e.g. `https://krishna-temple-api.onrender.com`).
+

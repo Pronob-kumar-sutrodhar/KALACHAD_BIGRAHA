@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FaTimes, FaHeart, FaLock, FaCheckCircle, FaOm } from 'react-icons/fa'
+import { FaTimes, FaLock, FaCheckCircle, FaOm, FaCreditCard, FaReceipt, FaExternalLinkAlt } from 'react-icons/fa'
 import toast from 'react-hot-toast'
 import api from '../services/api'
 import { useLanguage } from '../context/LanguageContext'
@@ -13,6 +13,7 @@ export default function QuickDonateModal({ isOpen, onClose, initialCause }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [gotra, setGotra] = useState('')
+  const [paymentMode, setPaymentMode] = useState('stripe') // 'stripe' | 'direct'
   const [isAnonymous, setIsAnonymous] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -31,7 +32,7 @@ export default function QuickDonateModal({ isOpen, onClose, initialCause }) {
     if (val > 0) setAmount(val)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!amount || amount <= 0) {
       toast.error(language === 'bn' ? 'অনুগ্রহ করে সঠিক দানের পরিমাণ লিখুন' : 'Please enter a valid donation amount')
@@ -43,6 +44,40 @@ export default function QuickDonateModal({ isOpen, onClose, initialCause }) {
     }
 
     setIsSubmitting(true)
+
+    if (paymentMode === 'stripe') {
+      try {
+        const sessionRes = await api.post('/api/payment/create-checkout-session', {
+          amount,
+          title: initialCause?.title || (language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ মন্দির সেবা তহবিল' : 'Krishna Temple Seva Fund'),
+          customerEmail: email,
+          type: 'donation',
+          successUrl: `${window.location.origin}/donations?status=success&amount=${amount}`,
+          cancelUrl: `${window.location.origin}/donations?status=cancelled`,
+        })
+
+        if (sessionRes.data?.url) {
+          toast.loading(
+            language === 'bn'
+              ? 'স্ট্রাইপ পেমেন্ট পোর্টালে নিয়ে যাওয়া হচ্ছে...'
+              : 'Redirecting to secure Stripe Checkout portal...'
+          )
+          window.location.href = sessionRes.data.url
+          return
+        }
+      } catch (err) {
+        console.error('Stripe donation session error:', err)
+        toast.error(
+          language === 'bn'
+            ? `স্ট্রাইপ সংযোগ ব্যর্থ হয়েছে: ${err.response?.data?.message || err.message}`
+            : `Stripe connection error: ${err.response?.data?.message || err.message}`
+        )
+        setIsSubmitting(false)
+        return
+      }
+    }
+
+    // Direct Offering Flow
     api.post('/api/donations/donate', {
       amount,
       name,
@@ -85,8 +120,8 @@ export default function QuickDonateModal({ isOpen, onClose, initialCause }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-fadeIn">
-      <div className="bg-white max-w-lg w-full shadow-2xl relative border-t-4 border-temple-accent overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-fadeIn font-poppins">
+      <div className="bg-white max-w-lg w-full shadow-2xl relative border-t-4 border-temple-accent overflow-hidden max-h-[92vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={handleClose}
@@ -143,13 +178,13 @@ export default function QuickDonateModal({ isOpen, onClose, initialCause }) {
 
             <button
               onClick={handleClose}
-              className="kr-btn-custom w-full text-center"
+              className="kr-btn-custom w-full text-center cursor-pointer"
             >
               {language === 'bn' ? 'সম্পন্ন করুন' : 'Close Receipt'}
             </button>
           </div>
         ) : (
-          <div className="p-6 sm:p-8 space-y-6">
+          <div className="p-6 sm:p-8 space-y-5">
             {/* Header */}
             <div>
               <div className="inline-flex items-center gap-2 text-temple-accent font-semibold text-xs uppercase tracking-widest mb-1">
@@ -166,7 +201,7 @@ export default function QuickDonateModal({ isOpen, onClose, initialCause }) {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 font-poppins">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Preset Amounts in BDT */}
               <div>
                 <label className="block text-xs font-semibold text-gray-700 mb-2">
@@ -178,9 +213,9 @@ export default function QuickDonateModal({ isOpen, onClose, initialCause }) {
                       type="button"
                       key={val}
                       onClick={() => handleAmountSelect(val)}
-                      className={`py-2.5 px-3 text-xs font-lora font-bold transition-all border cursor-pointer ${
+                      className={`py-2 px-3 text-xs font-lora font-bold transition-all border cursor-pointer ${
                         amount === val && !customAmount
-                          ? 'bg-temple-accent text-white border-temple-accent shadow-sm'
+                          ? 'bg-temple-accent text-white border-temple-accent shadow-xs'
                           : 'bg-gray-50 text-gray-800 border-gray-200 hover:border-temple-accent'
                       }`}
                     >
@@ -203,7 +238,7 @@ export default function QuickDonateModal({ isOpen, onClose, initialCause }) {
                     placeholder="অন্যান্য পরিমাণ (যেমন: 2000)"
                     value={customAmount}
                     onChange={handleCustomChange}
-                    className="w-full pl-8 pr-4 py-2 border border-gray-300 text-sm focus:border-temple-accent focus:outline-hidden"
+                    className="w-full pl-8 pr-4 py-2 border border-gray-300 text-xs focus:border-temple-accent focus:outline-hidden"
                   />
                 </div>
               </div>
@@ -252,40 +287,69 @@ export default function QuickDonateModal({ isOpen, onClose, initialCause }) {
                 />
               </div>
 
-              {/* Anonymous Checkbox */}
-              <div className="flex items-center gap-2 pt-1">
-                <input
-                  type="checkbox"
-                  id="anonymousCheck"
-                  checked={isAnonymous}
-                  onChange={(e) => setIsAnonymous(e.target.checked)}
-                  className="rounded-xs text-temple-accent focus:ring-temple-accent w-4 h-4"
-                />
-                <label htmlFor="anonymousCheck" className="text-xs text-gray-600 cursor-pointer select-none">
-                  {language === 'bn' ? 'আমার নাম গোপন রাখুন (গুপ্ত দান)' : 'Keep my donation anonymous'}
-                </label>
-              </div>
-
-              {/* Submit Button */}
-              <div className="pt-3">
+              {/* Payment Gateway Mode */}
+              <div className="grid grid-cols-2 gap-2 pt-1">
                 <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="kr-btn-custom w-full flex items-center justify-center gap-2 py-3.5"
+                  type="button"
+                  onClick={() => setPaymentMode('stripe')}
+                  className={`p-2.5 border text-left flex items-center gap-2 transition-all cursor-pointer ${
+                    paymentMode === 'stripe'
+                      ? 'border-temple-accent bg-orange-50/60 shadow-xs'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
                 >
-                  <FaLock className="text-xs text-temple-gold" />
-                  <span>
-                    {isSubmitting
-                      ? (language === 'bn' ? 'দান প্রক্রিয়াধীন...' : 'Processing Seva...')
-                      : (language === 'bn' ? `${formatMoney(amount)} দান সম্পন্ন করুন` : `Complete Offering (${formatMoney(amount)})`)}
-                  </span>
+                  <FaCreditCard className="text-temple-accent text-sm shrink-0" />
+                  <div>
+                    <span className="text-[11px] font-bold text-gray-800 block">Stripe Online</span>
+                    <span className="text-[9px] text-gray-500">Card / Google / Apple Pay</span>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMode('direct')}
+                  className={`p-2.5 border text-left flex items-center gap-2 transition-all cursor-pointer ${
+                    paymentMode === 'direct'
+                      ? 'border-temple-accent bg-orange-50/60 shadow-xs'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <FaReceipt className="text-temple-primary text-sm shrink-0" />
+                  <div>
+                    <span className="text-[11px] font-bold text-gray-800 block">{language === 'bn' ? 'সরাসরি রসিদ' : 'Direct Receipt'}</span>
+                    <span className="text-[9px] text-gray-500">80G Instant Exemption</span>
+                  </div>
                 </button>
               </div>
 
-              <p className="text-[11px] text-gray-400 text-center flex items-center justify-center gap-1.5 pt-1">
-                <FaLock className="text-[9px]" />
-                <span>{language === 'bn' ? '২৫৬-বিট সুরক্ষিত পেমেন্ট ও ৮-জি ট্যাক্স ছাড় সার্টিফিকেট' : '256-Bit SSL Encrypted & 80G Tax Deductible Receipt'}</span>
-              </p>
+              {/* Submit Button */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="kr-btn-custom w-full flex items-center justify-center gap-2 py-3 cursor-pointer text-xs"
+                >
+                  {paymentMode === 'stripe' ? (
+                    <>
+                      <FaExternalLinkAlt className="text-xs text-temple-gold" />
+                      <span>
+                        {isSubmitting
+                          ? (language === 'bn' ? 'স্ট্রাইপ সংযোগ হচ্ছে...' : 'Redirecting to Stripe...')
+                          : (language === 'bn' ? `স্ট্রাইপ পেজে ${formatMoney(amount)} দান করুন` : `Pay ${formatMoney(amount)} with Stripe`)}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <FaLock className="text-xs text-temple-gold" />
+                      <span>
+                        {isSubmitting
+                          ? (language === 'bn' ? 'দান প্রক্রিয়াধীন...' : 'Processing...')
+                          : (language === 'bn' ? `${formatMoney(amount)} সেবা দান সম্পন্ন করুন` : `Complete Seva Offering (${formatMoney(amount)})`)}
+                      </span>
+                    </>
+                  )}
+                </button>
+              </div>
             </form>
           </div>
         )}

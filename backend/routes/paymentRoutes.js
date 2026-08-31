@@ -1,9 +1,15 @@
-﻿const express = require('express');
+const express = require('express');
 const router = express.Router();
-const { createPaymentIntent, getStripePublishableKey } = require('../controllers/paymentController');
-const { protect } = require('../middleware/authMiddleware');
+const {
+  createCheckoutSession,
+  verifyCheckoutSession,
+  createPaymentIntent,
+  getStripePublishableKey,
+} = require('../controllers/paymentController');
 
 router.get('/config', getStripePublishableKey);
-router.post('/create-payment-intent', protect, createPaymentIntent);
+router.post('/create-checkout-session', createCheckoutSession);
+router.get('/verify-session/:sessionId', verifyCheckoutSession);
+router.post('/create-payment-intent', createPaymentIntent);
 
 module.exports = router;

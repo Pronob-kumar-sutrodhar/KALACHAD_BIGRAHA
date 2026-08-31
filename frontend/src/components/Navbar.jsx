@@ -4,7 +4,7 @@ import {
   FaPhoneAlt, FaEnvelope, FaSearch, FaShoppingCart,
   FaBars, FaTimes, FaChevronDown, FaFacebookF,
   FaInstagram, FaYoutube, FaOm, FaCircle,
-  FaTrash, FaSignInAlt, FaUserCheck, FaGlobe
+  FaTrash, FaSignInAlt, FaUserCheck, FaGlobe, FaUserShield
 } from 'react-icons/fa'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
@@ -137,6 +137,16 @@ export default function Navbar() {
 
           {/* Right: Language Switcher, Live Darshan & Socials */}
           <div className="flex items-center gap-4">
+            {/* Admin CMS Button */}
+            <Link
+              to="/admin"
+              className="flex items-center gap-1.5 bg-temple-gold hover:bg-white text-temple-primary px-2.5 py-1 text-xs font-bold rounded-xs shadow-xs transition-all"
+              title="Temple Administration Portal"
+            >
+              <FaUserShield className="text-[11px]" />
+              <span>{language === 'bn' ? 'অ্যাডমিন প্যানেল' : 'Admin CMS'}</span>
+            </Link>
+
             {/* Language Switcher Toggle */}
             <button
               onClick={toggleLanguage}
@@ -337,12 +347,18 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Devotee Login / Account */}
+            {/* Devotee Login / Account / Admin */}
             {user ? (
               <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-temple-primary bg-orange-50 px-3 py-1.5 border border-temple-accent/30">
                 <FaUserCheck className="text-temple-accent" />
                 <span className="truncate max-w-[90px]">{user.name}</span>
-                <button onClick={logout} className="text-gray-400 hover:text-red-600 text-[10px] ml-1">
+                <Link
+                  to="/admin"
+                  className="bg-temple-accent hover:bg-orange-700 text-white text-[10px] px-1.5 py-0.5 font-bold transition-colors"
+                >
+                  Admin
+                </Link>
+                <button onClick={logout} className="text-gray-400 hover:text-red-600 text-[10px] ml-1 cursor-pointer">
                   (লগআউট)
                 </button>
               </div>
@@ -433,6 +449,14 @@ export default function Navbar() {
             ))}
 
             <div className="pt-4 flex flex-col gap-2">
+              <Link
+                to="/admin"
+                onClick={() => setMobileOpen(false)}
+                className="bg-temple-gold text-temple-primary hover:bg-yellow-500 font-bold w-full text-center py-2.5 text-xs flex items-center justify-center gap-2 shadow-sm"
+              >
+                <FaUserShield />
+                <span>{language === 'bn' ? 'অ্যাডমিন প্যানেল / CMS' : 'Admin CMS Portal'}</span>
+              </Link>
               <Link
                 to="/donations"
                 className="kr-btn-custom w-full text-center"

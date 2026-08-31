@@ -15,21 +15,13 @@ const submitContact = asyncHandler(async (req, res) => {
   const contact = new Contact({
     name,
     email,
-    phone,
+    phone: phone || '',
     subject: subject || 'General Devotee Inquiries',
     message,
     status: 'new',
   });
 
   const savedContact = await contact.save();
-
-  console.log('--- New Devotee Inquiry / Prayer Request ---');
-  console.log(`Name:    ${name}`);
-  console.log(`Email:   ${email}`);
-  console.log(`Phone:   ${phone}`);
-  console.log(`Subject: ${subject}`);
-  console.log(`Message: ${message}`);
-  console.log('--------------------------------------------');
 
   res.status(200).json({
     success: true,
@@ -46,4 +38,18 @@ const getContactInquiries = asyncHandler(async (req, res) => {
   res.json(contacts);
 });
 
-module.exports = { submitContact, getContactInquiries };
+// @desc  Delete contact inquiry
+// @route DELETE /api/contact/:id
+// @access Private/Admin
+const deleteContact = asyncHandler(async (req, res) => {
+  const contact = await Contact.findById(req.params.id);
+  if (contact) {
+    await contact.deleteOne();
+    res.json({ message: 'Inquiry removed' });
+  } else {
+    res.status(404);
+    throw new Error('Inquiry not found');
+  }
+});
+
+module.exports = { submitContact, getContactInquiries, deleteContact };

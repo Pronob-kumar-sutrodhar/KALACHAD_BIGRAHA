@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaOm, FaClock, FaCalendarCheck } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
+import api from '../services/api'
 
 const PUJAS_DATA = [
   {
     id: 1,
+    _id: '1',
     category: 'Durga Puja',
     categoryBn: 'দুর্গাপূজা',
     titleBn: 'মহানবমী চণ্ডী হোম ও বিশেষ যজ্ঞ',
@@ -18,6 +20,7 @@ const PUJAS_DATA = [
   },
   {
     id: 2,
+    _id: '2',
     category: 'Daily Aarti',
     categoryBn: 'নিত্য আরতি',
     titleBn: 'শ্রী শ্রী রাধাকৃষ্ণ নিত্য মঙ্গল আরতি ও অর্চনা',
@@ -31,6 +34,7 @@ const PUJAS_DATA = [
   },
   {
     id: 3,
+    _id: '3',
     category: 'Janmashtami',
     categoryBn: 'জন্মাষ্টমী',
     titleBn: '১০৮ কলশ পঞ্চামৃত মহা অভিষেক',
@@ -44,6 +48,7 @@ const PUJAS_DATA = [
   },
   {
     id: 4,
+    _id: '4',
     category: 'Raksha Bandhan',
     categoryBn: 'রক্ষা বন্ধন',
     titleBn: 'শ্রীকৃষ্ণ রক্ষা কবচ ও তুলসী অর্চনা',
@@ -57,6 +62,7 @@ const PUJAS_DATA = [
   },
   {
     id: 5,
+    _id: '5',
     category: 'Mahashivratri',
     categoryBn: 'মহাশিবরাত্রি',
     titleBn: 'রুদ্র অভিষেক ও বিল্বপত্র অর্চনা',
@@ -70,6 +76,7 @@ const PUJAS_DATA = [
   },
   {
     id: 6,
+    _id: '6',
     category: 'Diwali',
     categoryBn: 'দীপাবলি',
     titleBn: '১০৮ ঘৃত প্রদীপ দান ও শ্রীলক্ষ্মী যজ্ঞ',
@@ -85,7 +92,37 @@ const PUJAS_DATA = [
 
 export default function PujaSection({ onBookPuja }) {
   const [activeTab, setActiveTab] = useState('All')
+  const [pujas, setPujas] = useState(PUJAS_DATA)
   const { language, formatMoney } = useLanguage()
+
+  useEffect(() => {
+    const fetchPujas = async () => {
+      try {
+        const { data } = await api.get('/api/pujas')
+        if (data?.pujas?.length > 0) {
+          // Merge API data with localized fields
+          const dbPujas = data.pujas.map((p, i) => ({
+            id: p._id || i + 1,
+            _id: p._id,
+            category: p.category || 'Daily Aarti',
+            categoryBn: p.category === 'Daily Aarti' ? 'নিত্য আরতি' : p.category,
+            titleBn: p.title,
+            titleEn: p.title,
+            image: p.image || '/assets/img/puja/1.webp',
+            timingBn: p.schedule || 'প্রতিদিন ভোর ও সন্ধ্যা',
+            timingEn: p.schedule || 'Daily Morning & Evening',
+            price: Number(p.price?.replace(/[^0-9]/g, '')) || 501,
+            descBn: p.description,
+            descEn: p.description,
+          }))
+          setPujas(dbPujas)
+        }
+      } catch {
+        // Fallback to initial verified dataset
+      }
+    }
+    fetchPujas()
+  }, [])
 
   const categories = language === 'bn'
     ? [
@@ -107,11 +144,11 @@ export default function PujaSection({ onBookPuja }) {
 
   const filteredPujas =
     activeTab === 'All'
-      ? PUJAS_DATA
-      : PUJAS_DATA.filter((p) => p.category === activeTab)
+      ? pujas
+      : pujas.filter((p) => p.category === activeTab)
 
   return (
-    <section className="py-20 lg:py-24 bg-temple-light" aria-label="Sacred Pujas and Rituals">
+    <section className="py-20 lg:py-24 bg-temple-light font-poppins" aria-label="Sacred Pujas and Rituals">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading & Category Filter Tabs */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">

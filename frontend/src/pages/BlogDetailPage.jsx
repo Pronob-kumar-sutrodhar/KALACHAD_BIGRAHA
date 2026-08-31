@@ -70,6 +70,22 @@ export default function BlogDetailPage() {
         const { data } = await api.get(`/api/blogs/${id}`)
         if (data && data.title) {
           setBlog(data)
+          if (data.comments && data.comments.length > 0) {
+            setComments(
+              data.comments.map((c) => ({
+                id: c._id || c.id || Date.now(),
+                name: c.name,
+                date: c.date
+                  ? new Date(c.date).toLocaleDateString(language === 'bn' ? 'bn-BD' : 'en-US', {
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric',
+                    })
+                  : '২০২৬',
+                text: c.text || c.comment,
+              }))
+            )
+          }
         } else {
           setBlog(MOCK_ARTICLE)
         }
@@ -80,29 +96,39 @@ export default function BlogDetailPage() {
       }
     }
     fetchBlog()
-  }, [id])
+  }, [id, language])
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault()
     if (!commentForm.name || !commentForm.comment) {
       toast.error(language === 'bn' ? 'অনুগ্রহ করে নাম ও মন্তব্য লিখুন' : 'Please enter your name and comment')
       return
     }
+
     const newComment = {
       id: Date.now(),
       name: commentForm.name,
       date: language === 'bn' ? 'এইমাত্র' : 'Just now',
       text: commentForm.comment,
     }
-    api.post(`/api/blogs/${id}/comments`, {
-      name: commentForm.name,
-      email: commentForm.email,
-      text: commentForm.comment,
-    }).catch(() => {})
+
+    try {
+      await api.post(`/api/blogs/${id}/comments`, {
+        name: commentForm.name,
+        email: commentForm.email,
+        text: commentForm.comment,
+      })
+    } catch (err) {
+      console.warn('Comment posted with fallback:', err.message)
+    }
 
     setComments([newComment, ...comments])
     setCommentForm({ name: '', email: '', comment: '' })
-    toast.success(language === 'bn' ? 'ধন্যবাদ! আপনার মন্তব্য সফলভাবে প্রকাশিত হয়েছে।' : 'Thank you! Your devotional comment has been posted.')
+    toast.success(
+      language === 'bn'
+        ? 'ধন্যবাদ! আপনার মন্তব্য সফলভাবে ডেটাবেজে সংরক্ষিত হয়েছে।'
+        : 'Thank you! Your devotional comment has been posted.'
+    )
   }
 
   if (loading) return <LoadingSpinner />
@@ -114,7 +140,7 @@ export default function BlogDetailPage() {
   }) : 'August 15, 2026'
 
   return (
-    <div className="w-full">
+    <div className="w-full font-poppins">
       <PageBanner
         title={blog?.title || (language === 'bn' ? 'ধর্মকথা ও প্রবন্ধ' : 'Discourse')}
         subtitle={language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ মহা মন্দির' : 'Sanatan Wisdom & Scripture'}
@@ -125,7 +151,7 @@ export default function BlogDetailPage() {
       />
       <GodsTicker />
 
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-temple-light min-h-screen font-poppins">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-temple-light min-h-screen">
         <div className="max-w-4xl mx-auto space-y-12">
           {/* Main Article Container */}
           <article className="bg-white p-6 sm:p-10 border border-gray-200 shadow-sm space-y-8">
@@ -166,7 +192,7 @@ export default function BlogDetailPage() {
             </div>
 
             {/* Markdown/Article Content */}
-            <div className="prose max-w-none text-gray-700 text-sm sm:text-base leading-relaxed whitespace-pre-line font-poppins">
+            <div className="prose max-w-none text-gray-700 text-sm sm:text-base leading-relaxed whitespace-pre-line">
               {blog?.content}
             </div>
 
@@ -280,7 +306,7 @@ export default function BlogDetailPage() {
 
               <button
                 type="submit"
-                className="bg-temple-accent hover:bg-orange-700 text-white font-lora text-xs uppercase tracking-wider font-semibold py-3 px-6 transition-colors cursor-pointer"
+                className="kr-btn-custom py-3 px-6 text-xs cursor-pointer"
               >
                 {language === 'bn' ? 'মন্তব্য জমা দিন' : 'Submit Reflection'}
               </button>

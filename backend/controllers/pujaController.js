@@ -55,7 +55,7 @@ const bookPuja = asyncHandler(async (req, res) => {
   const booking = new PujaBooking({
     user: req.user ? req.user._id : undefined,
     pujaTitle: pujaTitle || 'Daily Aarti & Archana',
-    dakshina: dakshina || '$51',
+    dakshina: dakshina || '৳ ৫০১ দক্ষিণা',
     devoteeName,
     phone,
     email,
@@ -95,6 +95,36 @@ const getAllPujaBookings = asyncHandler(async (req, res) => {
   res.json(bookings);
 });
 
+// @desc  Update devotee booking status (admin)
+// @route PUT /api/pujas/bookings/:id
+// @access Private/Admin
+const updateBookingStatus = asyncHandler(async (req, res) => {
+  const { status } = req.body;
+  const booking = await PujaBooking.findById(req.params.id);
+  if (booking) {
+    booking.status = status || booking.status;
+    const updated = await booking.save();
+    res.json(updated);
+  } else {
+    res.status(404);
+    throw new Error('Booking not found');
+  }
+});
+
+// @desc  Delete devotee booking (admin)
+// @route DELETE /api/pujas/bookings/:id
+// @access Private/Admin
+const deleteBooking = asyncHandler(async (req, res) => {
+  const booking = await PujaBooking.findById(req.params.id);
+  if (booking) {
+    await booking.deleteOne();
+    res.json({ message: 'Booking removed' });
+  } else {
+    res.status(404);
+    throw new Error('Booking not found');
+  }
+});
+
 // @desc  Create a new puja offering type
 // @route POST /api/pujas
 // @access Private/Admin
@@ -103,7 +133,7 @@ const createPuja = asyncHandler(async (req, res) => {
   const puja = new Puja({
     title,
     description,
-    price: price || '$51 Dakshina',
+    price: price || '৳ ৫০১ দক্ষিণা',
     image: image || '/assets/img/puja/1.webp',
     category: category || 'Daily Aarti',
     schedule: schedule || 'Daily 06:30 AM & 06:30 PM',
@@ -113,11 +143,52 @@ const createPuja = asyncHandler(async (req, res) => {
   res.status(201).json(createdPuja);
 });
 
+// @desc  Update puja offering
+// @route PUT /api/pujas/:id
+// @access Private/Admin
+const updatePuja = asyncHandler(async (req, res) => {
+  const { title, description, price, image, category, schedule, benefits } = req.body;
+  const puja = await Puja.findById(req.params.id);
+  if (puja) {
+    puja.title = title || puja.title;
+    puja.description = description || puja.description;
+    puja.price = price || puja.price;
+    puja.image = image || puja.image;
+    puja.category = category || puja.category;
+    puja.schedule = schedule || puja.schedule;
+    if (benefits) puja.benefits = benefits;
+
+    const updated = await puja.save();
+    res.json(updated);
+  } else {
+    res.status(404);
+    throw new Error('Puja offering not found');
+  }
+});
+
+// @desc  Delete puja offering
+// @route DELETE /api/pujas/:id
+// @access Private/Admin
+const deletePuja = asyncHandler(async (req, res) => {
+  const puja = await Puja.findById(req.params.id);
+  if (puja) {
+    await puja.deleteOne();
+    res.json({ message: 'Puja offering removed' });
+  } else {
+    res.status(404);
+    throw new Error('Puja offering not found');
+  }
+});
+
 module.exports = {
   getPujas,
   getPujaById,
   bookPuja,
   getMyPujaBookings,
   getAllPujaBookings,
+  updateBookingStatus,
+  deleteBooking,
   createPuja,
+  updatePuja,
+  deletePuja,
 };

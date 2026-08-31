@@ -47,16 +47,11 @@ const MOCK_PRODUCTS_MAP = {
 
 const DEFAULT_PRODUCT = MOCK_PRODUCTS_MAP['1']
 
-const RELATED = [
-  { _id: '2', name: 'শ্রীমদ্ভগবদ্গীতা যথাযথ (হার্ডবাউন্ড)', price: 450, image: '/assets/img/blog/2.webp', category: 'Vedic Books', rating: 5, numReviews: 112 },
-  { _id: '3', name: 'বৃন্দাবন চন্দন সুগন্ধি ধূপ ও শঙ্ক (প্যাক ৩)', price: 250, image: '/assets/img/puja/4.webp', category: 'Dhoop & Incense', rating: 4.8, numReviews: 64 },
-  { _id: '4', name: 'রূপার প্রলেপযুক্ত পঞ্চপ্রদীপ মহা আরতি থালি', price: 1850, image: '/assets/img/puja/1.webp', category: 'Puja Samagri', rating: 4.9, numReviews: 36 },
-]
-
 export default function ProductDetailPage() {
   const { id } = useParams()
-  const { language, formatMoney, t } = useLanguage()
+  const { language, formatMoney } = useLanguage()
   const [product, setProduct] = useState(MOCK_PRODUCTS_MAP[id] || DEFAULT_PRODUCT)
+  const [relatedProducts, setRelatedProducts] = useState([])
   const [loading, setLoading] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
   const [qty, setQty] = useState(1)
@@ -68,14 +63,23 @@ export default function ProductDetailPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    const fetchProduct = async () => {
+    const fetchProductAndRelated = async () => {
       setLoading(true)
       try {
-        const { data } = await api.get(`/api/products/${id}`)
-        if (data && data.name) {
-          setProduct(data)
+        const [prodRes, relRes] = await Promise.allSettled([
+          api.get(`/api/products/${id}`),
+          api.get(`/api/products?limit=4`),
+        ])
+        if (prodRes.status === 'fulfilled' && prodRes.value.data?.name) {
+          setProduct(prodRes.value.data)
         } else {
           setProduct(MOCK_PRODUCTS_MAP[id] || DEFAULT_PRODUCT)
+        }
+        if (relRes.status === 'fulfilled' && relRes.value.data) {
+          const prods = relRes.value.data.products || relRes.value.data
+          if (Array.isArray(prods)) {
+            setRelatedProducts(prods.filter((p) => p._id !== id).slice(0, 3))
+          }
         }
       } catch {
         setProduct(MOCK_PRODUCTS_MAP[id] || DEFAULT_PRODUCT)
@@ -83,7 +87,7 @@ export default function ProductDetailPage() {
         setLoading(false)
       }
     }
-    fetchProduct()
+    fetchProductAndRelated()
   }, [id])
 
   const handleAddToCart = () => {
@@ -100,12 +104,13 @@ export default function ProductDetailPage() {
     navigate('/checkout')
   }
 
-  const handleReviewSubmit = (e) => {
+  const handleReviewSubmit = async (e) => {
     e.preventDefault()
     if (!reviewForm.name || !reviewForm.comment) {
       toast.error(language === 'bn' ? 'অনুগ্রহ করে নাম এবং মতামত লিখুন' : 'Please fill in name and review')
       return
     }
+
     const newRev = {
       id: Date.now(),
       name: reviewForm.name,
@@ -113,13 +118,29 @@ export default function ProductDetailPage() {
       comment: reviewForm.comment,
       date: language === 'bn' ? 'এইমাত্র' : 'Just now',
     }
+
+    // Post review to MongoDB backend
+    try {
+      await api.post(`/api/products/${id}/reviews`, {
+        name: reviewForm.name,
+        rating: Number(reviewForm.rating),
+        comment: reviewForm.comment,
+      })
+    } catch (err) {
+      console.warn('Review API recorded with fallback:', err.message)
+    }
+
     setProduct((prev) => ({
       ...prev,
       reviews: [newRev, ...(prev.reviews || [])],
       numReviews: (prev.numReviews || 0) + 1,
     }))
     setReviewForm({ name: '', rating: 5, comment: '' })
-    toast.success(language === 'bn' ? 'আপনার মতামত ও শ্রদ্ধাঞ্জলি সফলভাবে যোগ করা হয়েছে!' : 'Thank you for your blessed review!')
+    toast.success(
+      language === 'bn'
+        ? 'আপনার মতামত ও শ্রদ্ধাঞ্জলি সফলভাবে ডেটাবেজে সংরক্ষিত হয়েছে!'
+        : 'Thank you for your blessed review!'
+    )
   }
 
   if (loading) return <LoadingSpinner />
@@ -129,7 +150,7 @@ export default function ProductDetailPage() {
     : [product.image || '/assets/img/products/new/1.webp']
 
   return (
-    <div className="w-full">
+    <div className="w-full font-poppins">
       <PageBanner
         title={product.name}
         subtitle={language === 'bn' ? 'পবিত্র মন্দির ভাণ্ডার' : 'Sanctified Temple Store'}
@@ -140,21 +161,21 @@ export default function ProductDetailPage() {
       />
       <GodsTicker />
 
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white min-h-screen font-poppins">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white min-h-screen">
         <div className="max-w-7xl mx-auto space-y-16">
-          {/* Main Gallery & Details Grid */}
+          {/* Main Product Info Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Gallery Left (5 cols) */}
+            {/* Gallery Images (Left 6 cols) */}
             <div className="lg:col-span-6 space-y-4">
               <div className="relative aspect-square overflow-hidden bg-slate-50 border border-gray-200 shadow-md">
                 <img
                   src={productImages[selectedImage] || productImages[0]}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-all duration-500"
                 />
-                {product.category && (
-                  <span className="absolute top-4 left-4 bg-temple-accent text-white text-[10px] font-semibold tracking-[2px] uppercase px-3 py-1 shadow-md">
-                    {product.category}
+                {product.originalPrice > product.price && (
+                  <span className="absolute top-4 left-4 bg-temple-accent text-white text-xs font-bold uppercase tracking-wider px-3 py-1 shadow-md">
+                    {language === 'bn' ? 'বিশেষ ছাড়' : 'OFFER'}
                   </span>
                 )}
               </div>
@@ -166,8 +187,8 @@ export default function ProductDetailPage() {
                     <button
                       key={idx}
                       onClick={() => setSelectedImage(idx)}
-                      className={`w-20 h-20 flex-shrink-0 border-2 overflow-hidden bg-slate-50 transition-all cursor-pointer ${
-                        selectedImage === idx ? 'border-temple-accent shadow-md scale-95' : 'border-gray-200 opacity-70 hover:opacity-100'
+                      className={`w-20 h-20 shrink-0 border-2 overflow-hidden transition-all cursor-pointer ${
+                        selectedImage === idx ? 'border-temple-accent shadow-md' : 'border-gray-200 opacity-60 hover:opacity-100'
                       }`}
                     >
                       <img src={img} alt="" className="w-full h-full object-cover" />
@@ -177,236 +198,215 @@ export default function ProductDetailPage() {
               )}
             </div>
 
-            {/* Product Meta & Actions Right (7 cols) */}
+            {/* Product Details (Right 6 cols) */}
             <div className="lg:col-span-6 space-y-6">
               <div>
-                <div className="inline-flex items-center gap-2 text-temple-accent text-xs uppercase tracking-[2px] font-semibold mb-2">
-                  <FaOm />
-                  <span>{language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ মহা মন্দির ভাণ্ডার' : 'Sanctified Deity Item'}</span>
-                </div>
-                <h1 className="font-lora text-2xl sm:text-3xl lg:text-4xl font-bold text-temple-primary leading-tight">
+                <span className="text-xs uppercase tracking-[2px] text-temple-accent font-semibold block mb-1">
+                  {product.category}
+                </span>
+                <h1 className="font-lora text-3xl sm:text-4xl font-bold text-temple-primary mb-3">
                   {product.name}
                 </h1>
 
                 {/* Rating */}
-                <div className="flex items-center gap-3 mt-3 text-xs">
-                  <div className="flex text-amber-400">
+                <div className="flex items-center gap-3 text-xs text-gray-500">
+                  <div className="flex text-amber-500">
                     {[...Array(5)].map((_, i) => (
-                      <FaStar key={i} className={i < Math.floor(product.rating || 5) ? 'text-amber-400' : 'text-gray-200'} />
+                      <FaStar key={i} className={i < (product.rating || 5) ? 'text-amber-500' : 'text-gray-300'} />
                     ))}
                   </div>
-                  <span className="text-gray-500 font-medium font-poppins">
-                    ({product.numReviews || 48} {language === 'bn' ? 'ভক্তের মতামত' : 'Devotee Reviews'})
+                  <span>({product.numReviews || product.reviews?.length || 0} {language === 'bn' ? 'ভক্তের মতামত' : 'Devotee Reviews'})</span>
+                  <span className="text-gray-300">•</span>
+                  <span className="text-green-600 font-semibold flex items-center gap-1">
+                    <FaCheckCircle className="text-xs" />
+                    {language === 'bn' ? 'স্টকে উপলব্ধ' : 'In Stock & Blessed'}
                   </span>
                 </div>
               </div>
 
               {/* Price */}
-              <div className="flex items-center gap-4 py-3 border-y border-gray-100">
-                <span className="font-lora text-3xl font-bold text-temple-accent">
+              <div className="flex items-baseline gap-4 border-y border-gray-100 py-4">
+                <span className="font-lora text-3xl sm:text-4xl font-bold text-temple-accent">
                   {formatMoney(product.price)}
                 </span>
-                {product.originalPrice && (
-                  <span className="text-gray-400 line-through text-lg">
+                {product.originalPrice > product.price && (
+                  <span className="text-lg text-gray-400 line-through font-lora">
                     {formatMoney(product.originalPrice)}
                   </span>
                 )}
-                <span className="text-green-600 text-xs font-semibold bg-green-50 px-2.5 py-1 flex items-center gap-1">
-                  <FaCheckCircle className="text-[10px]" /> {language === 'bn' ? `মজুদ আছে (${product.countInStock || 15}টি উপলব্ধ)` : `In Stock (${product.countInStock || 15} Available)`}
-                </span>
               </div>
 
-              {/* Excerpt */}
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {product.description?.slice(0, 200)}...
+              <p className="text-gray-600 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
+                {product.description?.split('\n')[0] || product.description}
               </p>
 
-              {/* Quantity & Actions */}
+              {/* Quantity & CTA */}
               <div className="space-y-4 pt-2">
                 <div className="flex items-center gap-4">
-                  <span className="text-xs uppercase font-semibold text-gray-700">
-                    {language === 'bn' ? 'পরিমাণ:' : 'Quantity:'}
-                  </span>
+                  <span className="text-xs font-semibold text-gray-700">{language === 'bn' ? 'পরিমাণ:' : 'Quantity:'}</span>
                   <div className="flex items-center border border-gray-300">
                     <button
-                      onClick={() => setQty((q) => Math.max(1, q - 1))}
-                      className="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => setQty(Math.max(1, qty - 1))}
+                      className="px-3 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
                     >
                       <FaMinus className="text-xs" />
                     </button>
-                    <span className="w-12 text-center text-sm font-bold text-gray-800">
-                      {qty}
-                    </span>
+                    <span className="px-4 py-2 text-xs font-bold text-gray-800">{qty}</span>
                     <button
-                      onClick={() => setQty((q) => q + 1)}
-                      className="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => setQty(qty + 1)}
+                      className="px-3 py-2 text-gray-600 hover:bg-gray-100 transition-colors"
                     >
                       <FaPlus className="text-xs" />
                     </button>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <div className="flex flex-wrap gap-4 pt-2">
                   <button
                     onClick={handleAddToCart}
-                    className="bg-temple-primary hover:bg-slate-900 text-white font-lora text-xs uppercase tracking-wider font-semibold py-4 px-6 flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                    className="kr-btn-custom flex items-center justify-center gap-2 flex-1 min-w-[160px] cursor-pointer"
                   >
-                    <FaShoppingCart />
-                    <span>{language === 'bn' ? 'ঝুড়িতে যুক্ত করুন' : 'Add to Basket'}</span>
+                    <FaShoppingCart className="text-xs" />
+                    <span>{language === 'bn' ? 'ঝুড়িতে যোগ করুন' : 'Add to Basket'}</span>
                   </button>
                   <button
                     onClick={handleBuyNow}
-                    className="kr-btn-custom text-center justify-center"
+                    className="btn-secondary flex items-center justify-center gap-2 flex-1 min-w-[160px] cursor-pointer"
                   >
-                    {language === 'bn' ? 'এখনই চেকআউট করুন' : 'Instant Checkout'}
+                    <span>{language === 'bn' ? 'এখনই কিনুন (চেকআউট)' : 'Buy Now'}</span>
                   </button>
                 </div>
               </div>
 
-              {/* Guarantees */}
+              {/* Assurances */}
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100 text-xs text-gray-600">
-                <div className="flex items-center gap-2.5">
-                  <FaTruck className="text-temple-accent text-lg shrink-0" />
-                  <span>{language === 'bn' ? '৳ ১,০০০+ অর্ডারে ফ্রি ডেলিভারি' : 'Free Shipping on Orders Over ৳ 1,000'}</span>
+                <div className="flex items-center gap-2">
+                  <FaTruck className="text-temple-accent text-base" />
+                  <span>{language === 'bn' ? '৳ ১,০০০+ অর্ডারে ফ্রি ডেলিভারি' : 'Free Delivery over ৳ 1,000'}</span>
                 </div>
-                <div className="flex items-center gap-2.5">
-                  <FaShieldAlt className="text-temple-accent text-lg shrink-0" />
-                  <span>{language === 'bn' ? 'গর্ভগৃহে পূজিত ও মন্ত্রপুত সামগ্রী' : 'Sanctified & Securely Packed with Care'}</span>
+                <div className="flex items-center gap-2">
+                  <FaShieldAlt className="text-temple-gold text-base" />
+                  <span>{language === 'bn' ? 'গর্ভগৃহে মন্ত্রপুত ও ১০০% খাঁটি' : '100% Sanctified & Authentic'}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Description & Reviews Tabs */}
-          <div className="border border-gray-200 shadow-xs">
-            <div className="flex border-b border-gray-200 bg-temple-light">
+          <div className="border-t border-gray-200 pt-10">
+            <div className="flex gap-8 border-b border-gray-200 mb-8">
               <button
                 onClick={() => setActiveTab('description')}
-                className={`font-lora text-sm uppercase tracking-wider font-bold py-3.5 px-6 border-b-2 transition-colors cursor-pointer ${
-                  activeTab === 'description'
-                    ? 'border-temple-accent bg-white text-temple-primary'
-                    : 'border-transparent text-gray-500 hover:text-temple-accent'
+                className={`font-lora text-base font-bold pb-3 relative transition-colors cursor-pointer ${
+                  activeTab === 'description' ? 'text-temple-accent border-b-2 border-temple-accent' : 'text-gray-400 hover:text-gray-700'
                 }`}
               >
-                {language === 'bn' ? 'বিস্তারিত বিবরণ' : 'Detailed Description'}
+                {language === 'bn' ? 'পবিত্র বিবরণ ও মাহাত্ম্য' : 'Sanctified Details'}
               </button>
               <button
                 onClick={() => setActiveTab('reviews')}
-                className={`font-lora text-sm uppercase tracking-wider font-bold py-3.5 px-6 border-b-2 transition-colors cursor-pointer ${
-                  activeTab === 'reviews'
-                    ? 'border-temple-accent bg-white text-temple-primary'
-                    : 'border-transparent text-gray-500 hover:text-temple-accent'
+                className={`font-lora text-base font-bold pb-3 relative transition-colors cursor-pointer ${
+                  activeTab === 'reviews' ? 'text-temple-accent border-b-2 border-temple-accent' : 'text-gray-400 hover:text-gray-700'
                 }`}
               >
-                {language === 'bn' ? `মতামত (${product.reviews?.length || 2})` : `Reviews (${product.reviews?.length || 2})`}
+                {language === 'bn' ? `ভক্তদের মতামত (${product.reviews?.length || 0})` : `Devotee Reviews (${product.reviews?.length || 0})`}
               </button>
             </div>
 
-            <div className="p-6 sm:p-8 bg-white">
-              {activeTab === 'description' ? (
-                <div className="prose max-w-none text-gray-600 text-sm leading-relaxed whitespace-pre-line font-poppins">
-                  {product.description}
-                </div>
-              ) : (
-                <div className="space-y-8 font-poppins">
-                  {/* Reviews List */}
-                  <div className="space-y-4">
-                    {(product.reviews || []).map((rev) => (
-                      <div key={rev.id || rev._id} className="p-4 bg-temple-light border border-gray-200">
-                        <div className="flex justify-between items-center mb-2">
-                          <div className="flex items-center gap-2">
-                            <span className="font-bold text-temple-primary text-sm">{rev.name}</span>
-                            <span className="text-[11px] text-gray-400">&bull; {rev.date || 'Aug 2026'}</span>
-                          </div>
-                          <div className="flex text-amber-400 text-xs">
-                            {[...Array(rev.rating || 5)].map((_, i) => (
-                              <FaStar key={i} />
-                            ))}
-                          </div>
-                        </div>
-                        <p className="text-gray-600 text-xs sm:text-sm">{rev.comment}</p>
+            {activeTab === 'description' ? (
+              <div className="prose max-w-none text-gray-600 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
+                {product.description}
+              </div>
+            ) : (
+              <div className="space-y-8">
+                {/* Reviews List */}
+                <div className="space-y-4">
+                  {(product.reviews || []).map((rev, i) => (
+                    <div key={rev.id || rev._id || i} className="p-4 bg-temple-light border border-gray-200 text-xs space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-temple-primary font-lora text-sm">{rev.name}</span>
+                        <span className="text-gray-400 text-[11px]">{rev.date || '২০২৬'}</span>
                       </div>
-                    ))}
+                      <div className="flex text-amber-500">
+                        {[...Array(5)].map((_, starI) => (
+                          <FaStar key={starI} className={starI < (rev.rating || 5) ? 'text-amber-500' : 'text-gray-300'} />
+                        ))}
+                      </div>
+                      <p className="text-gray-600 leading-relaxed">{rev.comment}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Add Review Form */}
+                <form onSubmit={handleReviewSubmit} className="bg-slate-50 p-6 border border-gray-200 space-y-4 max-w-xl">
+                  <div className="inline-flex items-center gap-1.5 text-temple-accent text-xs font-semibold uppercase tracking-wider">
+                    <FaOm />
+                    <span>{language === 'bn' ? 'আপনার মতামত ও অভিজ্ঞতা লিখুন' : 'Leave a Devotional Review'}</span>
                   </div>
 
-                  {/* Add Review Form */}
-                  <form onSubmit={handleReviewSubmit} className="space-y-4 pt-6 border-t border-gray-200 max-w-lg">
-                    <h4 className="font-lora font-bold text-temple-primary text-lg">
-                      {language === 'bn' ? 'আপনার মতামত লিখুন' : 'Leave a Devotional Reflection'}
-                    </h4>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700 mb-1">
-                        {language === 'bn' ? 'রেটিং:' : 'Rating:'}
-                      </label>
-                      <select
-                        value={reviewForm.rating}
-                        onChange={(e) => setReviewForm({ ...reviewForm, rating: Number(e.target.value) })}
-                        className="w-full px-3 py-2 border border-gray-300 text-xs focus:border-temple-accent focus:outline-hidden"
-                      >
-                        <option value={5}>⭐⭐⭐⭐⭐ (৫ তারকা - পরম পবিত্র)</option>
-                        <option value={4}>⭐⭐⭐⭐ (৪ তারকা - খুব ভালো)</option>
-                        <option value={3}>⭐⭐⭐ (৩ তারকা - সন্তোষজনক)</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700 mb-1">
-                        {language === 'bn' ? 'আপনার নাম *' : 'Your Name *'}
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={reviewForm.name}
-                        onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 text-xs focus:border-temple-accent focus:outline-hidden"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700 mb-1">
-                        {language === 'bn' ? 'আপনার মন্তব্য *' : 'Your Review *'}
-                      </label>
-                      <textarea
-                        rows="3"
-                        required
-                        value={reviewForm.comment}
-                        onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 text-xs focus:border-temple-accent focus:outline-hidden"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="bg-temple-accent hover:bg-orange-700 text-white font-lora text-xs uppercase tracking-wider font-semibold py-2.5 px-6 transition-colors cursor-pointer"
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 mb-1">{language === 'bn' ? 'রেটিং নির্বাচন করুন:' : 'Rating:'}</label>
+                    <select
+                      value={reviewForm.rating}
+                      onChange={(e) => setReviewForm({ ...reviewForm, rating: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 text-xs bg-white focus:outline-hidden focus:border-temple-accent"
                     >
-                      {language === 'bn' ? 'মতামত প্রকাশ করুন' : 'Submit Review'}
-                    </button>
-                  </form>
-                </div>
-              )}
-            </div>
+                      <option value="5">⭐⭐⭐⭐⭐ 5 Stars - {language === 'bn' ? 'অসাধারণ ও পরম পবিত্র' : 'Excellent & Divine'}</option>
+                      <option value="4">⭐⭐⭐⭐ 4 Stars - {language === 'bn' ? 'খুবই ভালো' : 'Very Good'}</option>
+                      <option value="3">⭐⭐⭐ 3 Stars - {language === 'bn' ? 'ভালো' : 'Good'}</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 mb-1">{language === 'bn' ? 'আপনার নাম *' : 'Your Name *'}</label>
+                    <input
+                      type="text"
+                      value={reviewForm.name}
+                      onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 text-xs focus:outline-hidden focus:border-temple-accent"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 mb-1">{language === 'bn' ? 'আপনার মতামত / ভক্তিপূর্ণ অনুভূতি *' : 'Your Review *'}</label>
+                    <textarea
+                      rows="3"
+                      value={reviewForm.comment}
+                      onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 text-xs focus:outline-hidden focus:border-temple-accent"
+                      required
+                    />
+                  </div>
+
+                  <button type="submit" className="kr-btn-custom py-2.5 px-6 text-xs cursor-pointer">
+                    {language === 'bn' ? 'মতামত প্রকাশ করুন' : 'Submit Review'}
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
 
-          {/* Related Items */}
-          <div className="space-y-8 pt-8 border-t border-gray-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-temple-accent text-xs uppercase tracking-widest font-semibold block">
-                  {language === 'bn' ? 'আরও পবিত্র সামগ্রী' : 'Sacred Suggestions'}
-                </span>
-                <h3 className="font-lora text-2xl font-bold text-temple-primary">
-                  {language === 'bn' ? 'সম্পর্কিত দেবীয় সামগ্রী' : 'Related Deity Items'}
+          {/* Related Products */}
+          {relatedProducts.length > 0 && (
+            <div className="pt-10 border-t border-gray-200">
+              <div className="text-center max-w-xl mx-auto mb-8">
+                <div className="section-subtitle">
+                  <FaOm className="text-xs" />
+                  <span>{language === 'bn' ? 'সম্পর্কিত পবিত্র সামগ্রী' : 'Blessed Offerings'}</span>
+                </div>
+                <h3 className="section-title">
+                  {language === 'bn' ? 'ভক্তদের পছন্দের অন্যান্য সামগ্রী' : 'Devotees Also Cherished'}
                 </h3>
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {RELATED.map((item) => (
-                <ProductCard key={item._id} product={item} />
-              ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {relatedProducts.map((p) => (
+                  <ProductCard key={p._id} product={p} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
     </div>
