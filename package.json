@@ -1,0 +1,12 @@
+{
+  "name": "krishna-temple-fullstack",
+  "version": "1.0.0",
+  "description": "Sri Sri Krishna Mega Temple Fullstack App",
+  "private": true,
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "build:frontend": "npm install --prefix frontend && npm run build --prefix frontend",
+    "build:backend": "npm install --prefix backend",
+    "install:all": "npm install --prefix backend && npm install --prefix frontend"
+  }
+}
