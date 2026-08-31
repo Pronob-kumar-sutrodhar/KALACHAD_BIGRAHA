@@ -13,6 +13,7 @@
   - English: `Lora` (Serif) + `Poppins` (Sans-serif)
 - **Audio**: Custom Floating Ambient Bhajan & Flute Meditation Player (Local 7-track MP3 audio suite in `/assets/audio/`)
 - **Localization**: `LanguageContext` supporting default Bengali (`bn`) with an instant toggle button to English (`en`), universal BDT (`৳`) currency formatting, and category translation mappings.
+- **Brand Signature**: Dedicated `DEVELOPED WITH (heart) BY PRONOB` badge with fine golden/ruby neon drop-shadow glow embedded across the bottom of all public and admin pages.
 
 ---
 

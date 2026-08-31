@@ -211,17 +211,35 @@ export default function AdminLayout() {
           </div>
 
           {/* Sidebar Footer Info */}
-          <div className="p-4 border-t border-white/10 bg-black/40 text-[11px] text-white/60 space-y-1">
+          <div className="p-4 border-t border-white/10 bg-black/40 text-[11px] text-white/60 space-y-2">
             <p className="font-semibold text-white/80">Sri Sri Krishna Mega Temple</p>
             <p>Database: MongoDB Atlas (Live)</p>
             <p className="text-[10px] text-temple-gold">Currency: BDT (৳) &bull; Stripe Gateway</p>
+
+            <div className="pt-2">
+              <div className="inline-flex items-center gap-1.5 font-medium tracking-wider text-[9px] uppercase py-1 px-2.5 rounded-full bg-white/5 border border-temple-gold/40 shadow-[0_0_12px_rgba(212,175,55,0.3)]">
+                <span className="text-white/80">DEVELOPED WITH</span>
+                <FaHeart className="text-red-500 text-[10px] animate-pulse filter drop-shadow-[0_0_6px_rgba(239,68,68,0.9)]" />
+                <span className="text-white/80">BY</span>
+                <span className="text-temple-gold font-bold tracking-wider drop-shadow-[0_0_8px_rgba(212,175,55,0.7)]">PRONOB</span>
+              </div>
+            </div>
           </div>
         </aside>
 
         {/* Content Outlet Area */}
-        <main className="flex-1 bg-slate-100 p-4 sm:p-6 lg:p-8 overflow-y-auto max-h-[calc(100vh-62px)]">
-          <div className="max-w-7xl mx-auto">
+        <main className="flex-1 bg-slate-100 p-4 sm:p-6 lg:p-8 overflow-y-auto max-h-[calc(100vh-62px)] flex flex-col justify-between">
+          <div className="max-w-7xl mx-auto w-full">
             <Outlet />
+          </div>
+
+          <div className="max-w-7xl mx-auto w-full pt-8 pb-4 text-center">
+            <div className="inline-flex items-center gap-1.5 font-medium tracking-widest text-[11px] uppercase py-1 px-4 rounded-full bg-temple-primary text-white/80 border border-temple-gold/40 shadow-[0_0_15px_rgba(212,175,55,0.25)] hover:shadow-[0_0_22px_rgba(212,175,55,0.5)] transition-all">
+              <span>DEVELOPED WITH</span>
+              <FaHeart className="text-red-500 text-xs animate-pulse mx-0.5 filter drop-shadow-[0_0_8px_rgba(239,68,68,0.9)]" />
+              <span>BY</span>
+              <span className="text-temple-gold font-bold tracking-wider drop-shadow-[0_0_10px_rgba(212,175,55,0.7)]">PRONOB</span>
+            </div>
           </div>
         </main>
       </div>
