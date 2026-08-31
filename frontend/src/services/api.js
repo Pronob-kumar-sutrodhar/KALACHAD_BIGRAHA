@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+// If VITE_API_URL is provided (e.g. localhost:5000 in dev), use it.
+// In Netlify fullstack production, default to empty string so requests use relative /api paths.
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000',
+  baseURL: import.meta.env.VITE_API_URL !== undefined ? import.meta.env.VITE_API_URL : (import.meta.env.DEV ? 'http://localhost:5000' : ''),
   headers: {
     'Content-Type': 'application/json',
   },
