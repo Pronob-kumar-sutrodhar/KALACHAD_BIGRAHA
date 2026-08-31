@@ -14,6 +14,7 @@
 - **Audio**: Custom Floating Ambient Bhajan & Flute Meditation Player (Local 7-track MP3 audio suite in `/assets/audio/`)
 - **Localization**: `LanguageContext` supporting default Bengali (`bn`) with an instant toggle button to English (`en`), universal BDT (`৳`) currency formatting, and category translation mappings.
 - **Brand Signature**: Dedicated `DEVELOPED WITH (heart) BY PRONOB` badge with fine golden/ruby neon drop-shadow glow embedded across the bottom of all public and admin pages.
+- **Display Suitability**: 100% fluid responsive across all viewports (320px extra-small mobile, standard 375-430px smartphones, 768-1024px tablets/iPads, laptops, and 4K ultrawide monitors) with overflow-x protections, responsive tables with horizontal scroll containers, and adaptive modal viewports.
 
 ---
 

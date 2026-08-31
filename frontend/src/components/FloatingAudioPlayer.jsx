@@ -169,7 +169,7 @@ export default function FloatingAudioPlayer() {
   }
 
   return (
-    <aside className="fixed bottom-6 left-6 z-40 font-poppins select-none" aria-label="Devotional Audio Player">
+    <aside className="fixed bottom-4 left-3 sm:bottom-6 sm:left-6 z-40 font-poppins select-none max-w-[calc(100vw-24px)]" aria-label="Devotional Audio Player">
       {/* Native HTML5 Audio Element with Event Listeners */}
       <audio
         ref={audioRef}
@@ -190,15 +190,15 @@ export default function FloatingAudioPlayer() {
         /* Floating Mini Bubble */
         <button
           onClick={() => setIsMinimized(false)}
-          className="flex items-center gap-3 bg-temple-primary/95 text-white px-4 py-2.5 shadow-2xl border-2 border-temple-gold/60 backdrop-blur-md hover:bg-temple-accent transition-all cursor-pointer group"
+          className="flex items-center gap-2 sm:gap-3 bg-temple-primary/95 text-white px-3 sm:px-4 py-2 sm:py-2.5 shadow-2xl border-2 border-temple-gold/60 backdrop-blur-md hover:bg-temple-accent transition-all cursor-pointer group rounded-xs"
           title={language === 'bn' ? 'শ্রীকৃষ্ণ ভজন অডিও রেডিও' : 'Temple Ambient Radio'}
         >
-          <div className={`w-9 h-9 rounded-full bg-temple-accent group-hover:bg-temple-primary flex items-center justify-center text-temple-gold shadow-md ${isPlaying ? 'animate-spin' : ''}`}>
+          <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-temple-accent group-hover:bg-temple-primary flex items-center justify-center text-temple-gold shadow-md shrink-0 ${isPlaying ? 'animate-spin' : ''}`}>
             <FaMusic className="text-xs" />
           </div>
-          <div className="text-left">
+          <div className="text-left min-w-0">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] text-temple-gold font-bold uppercase tracking-wider block">
+              <span className="text-[9px] sm:text-[10px] text-temple-gold font-bold uppercase tracking-wider block">
                 {isPlaying ? (language === 'bn' ? 'চলছে • ভজন রেডিও' : 'Playing • Radio') : (language === 'bn' ? 'ভজন শুনুন' : 'Bhajan Radio')}
               </span>
               {isPlaying && (
@@ -209,15 +209,15 @@ export default function FloatingAudioPlayer() {
                 </div>
               )}
             </div>
-            <span className="text-xs font-semibold text-white truncate max-w-[130px] block">
+            <span className="text-[11px] sm:text-xs font-semibold text-white truncate max-w-[100px] sm:max-w-[130px] block">
               {language === 'bn' ? currentTrack.titleBn : currentTrack.titleEn}
             </span>
           </div>
-          <FaChevronUp className="text-xs text-temple-gold ml-1" />
+          <FaChevronUp className="text-xs text-temple-gold ml-1 shrink-0" />
         </button>
       ) : (
         /* Expanded Interactive Player Card */
-        <div className="w-84 sm:w-92 bg-temple-primary/98 text-white shadow-2xl border-t-4 border-temple-accent backdrop-blur-md p-4 animate-fadeIn border border-white/10 space-y-3">
+        <div className="w-[calc(100vw-24px)] sm:w-88 max-w-sm bg-temple-primary/98 text-white shadow-2xl border-t-4 border-temple-accent backdrop-blur-md p-4 animate-fadeIn border border-white/10 space-y-3">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/15 pb-2">
             <div className="flex items-center gap-2 text-temple-gold text-xs font-bold uppercase tracking-wider">

@@ -29,8 +29,8 @@ export default function QuickViewModal({ isOpen, onClose, product }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-fadeIn">
-      <div className="bg-white max-w-2xl w-full shadow-2xl relative border-t-4 border-temple-accent overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs animate-fadeIn font-poppins">
+      <div className="bg-white max-w-2xl w-full shadow-2xl relative border-t-4 border-temple-accent overflow-hidden max-h-[92vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -39,7 +39,7 @@ export default function QuickViewModal({ isOpen, onClose, product }) {
           <FaTimes className="text-lg" />
         </button>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 p-6 sm:p-8 gap-6 max-h-[90vh] overflow-y-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 p-5 sm:p-8 gap-6">
           {/* Product Image */}
           <div className="relative aspect-square bg-slate-50 border border-gray-100 flex items-center justify-center overflow-hidden">
             <img

@@ -276,7 +276,7 @@ export default function Navbar() {
 
               {/* Cart Dropdown Preview */}
               {cartOpen && (
-                <div className="absolute right-0 top-full mt-3 w-80 bg-white shadow-2xl border-t-2 border-temple-accent p-4 z-50 animate-fadeIn">
+                <div className="fixed sm:absolute left-3 right-3 sm:left-auto sm:right-0 top-18 sm:top-full mt-2 sm:mt-3 w-auto sm:w-80 max-w-sm bg-white shadow-2xl border-t-2 border-temple-accent p-4 z-50 animate-fadeIn">
                   <div className="flex items-center justify-between border-b pb-2 mb-3">
                     <span className="font-lora font-bold text-temple-primary text-sm">
                       {t('nav_shop_cart')} ({cartCount})

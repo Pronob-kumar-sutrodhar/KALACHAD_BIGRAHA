@@ -129,10 +129,10 @@ export default function HeroSlider({ onDonateClick }) {
           </p>
 
           {/* Action Buttons */}
-          <div className="pt-2 flex flex-wrap gap-4 items-center">
+          <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
             <Link
               to={slides[current].primaryBtn.link}
-              className="kr-btn-custom inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-wider"
+              className="kr-btn-custom w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs sm:text-sm uppercase tracking-wider"
             >
               <span>{slides[current].primaryBtn.text}</span>
             </Link>
@@ -145,7 +145,7 @@ export default function HeroSlider({ onDonateClick }) {
                   onDonateClick()
                 }
               }}
-              className="kr-btn-custom-outline inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-wider"
+              className="kr-btn-custom-outline w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs sm:text-sm uppercase tracking-wider"
             >
               <span>{slides[current].secondaryBtn.text}</span>
             </Link>

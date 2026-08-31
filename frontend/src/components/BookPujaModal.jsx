@@ -73,8 +73,8 @@ export default function BookPujaModal({ isOpen, onClose, puja }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-fadeIn">
-      <div className="bg-white max-w-lg w-full shadow-2xl relative border-t-4 border-temple-accent overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs animate-fadeIn font-poppins">
+      <div className="bg-white max-w-lg w-full shadow-2xl relative border-t-4 border-temple-accent overflow-hidden max-h-[92vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={handleClose}

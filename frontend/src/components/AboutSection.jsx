@@ -39,11 +39,11 @@ export default function AboutSection() {
             </div>
 
             {/* Heritage Counter Badge */}
-            <div className="absolute top-8 left-8 bg-temple-primary/95 text-white p-6 border-l-4 border-temple-gold shadow-2xl backdrop-blur-xs max-w-[190px]">
-              <span className="font-lora text-4xl sm:text-5xl font-bold text-temple-gold block leading-none">
-                ২৫<span className="text-2xl text-white">+</span>
+            <div className="absolute top-4 left-4 sm:top-8 sm:left-8 bg-temple-primary/95 text-white p-4 sm:p-6 border-l-4 border-temple-gold shadow-2xl backdrop-blur-xs max-w-[150px] sm:max-w-[190px]">
+              <span className="font-lora text-3xl sm:text-5xl font-bold text-temple-gold block leading-none">
+                ২৫<span className="text-xl sm:text-2xl text-white">+</span>
               </span>
-              <p className="font-poppins text-[11px] tracking-[1.5px] uppercase text-white/80 mt-2 font-medium">
+              <p className="font-poppins text-[10px] sm:text-[11px] tracking-[1.5px] uppercase text-white/80 mt-1.5 sm:mt-2 font-medium">
                 {language === 'bn' ? 'বছরের পবিত্র সেবা' : 'Years of Sacred Seva'}
               </p>
             </div>

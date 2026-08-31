@@ -196,7 +196,7 @@ export default function AdminPujasPage() {
       ) : activeTab === 'services' ? (
         /* Tab 1: Puja Services List */
         <div className="bg-white border border-gray-200 shadow-xs overflow-x-auto">
-          <table className="w-full text-left text-xs divide-y divide-gray-200">
+          <table className="w-full min-w-[650px] text-left text-xs divide-y divide-gray-200">
             <thead className="bg-temple-light font-lora text-temple-primary font-bold uppercase tracking-wider">
               <tr>
                 <th className="py-3.5 px-4">ছবি</th>
@@ -257,7 +257,7 @@ export default function AdminPujasPage() {
       ) : (
         /* Tab 2: Devotee Bookings List */
         <div className="bg-white border border-gray-200 shadow-xs overflow-x-auto">
-          <table className="w-full text-left text-xs divide-y divide-gray-200">
+          <table className="w-full min-w-[700px] text-left text-xs divide-y divide-gray-200">
             <thead className="bg-temple-light font-lora text-temple-primary font-bold uppercase tracking-wider">
               <tr>
                 <th className="py-3.5 px-4">বুকিং আইডি</th>
