@@ -38,13 +38,13 @@ The frontend includes a full-featured, responsive, production-ready Admin CMS en
 
 | File Name | Bengali Track Title | English Track Title | Artist / Tradition | Size |
 | :--- | :--- | :--- | :--- | :--- |
-| `hare_krishna_kirtan.mp3` | হরে কৃষ্ণ মহামন্ত্র নামসংকীর্তন | Hare Krishna Mahamantra Kirtan | মন্দির কীর্তন মণ্ডল | **4.6 MB** |
-| `krishna_flute_meditation.mp3` | শ্রী শ্রী রাধাকৃষ্ণ মধুর বাঁশির সুর ও ধ্যান | Krishna Flute Meditation (Bansuri Dhun) | দিব্য বাঁশরী সেবা | **5.4 MB** |
-| `achyutam_keshavam.mp3` | অচ্যুতম কেশবম কৃষ্ণ দামোদরম ভজন | Achyutam Keshavam Krishna Bhajan | শ্রী বৃন্দাবন সেবা ট্রাস্ট | **5.4 MB** |
-| `radhe_govinda_bhajan.mp3` | রাধে রাধে গোবিন্দ রাধে বৈষ্ণব ভজন | Radhe Radhe Govinda Radhe Bhajan | বৈষ্ণব সেবা সঙ্ঘ | **1.5 MB** |
-| `govind_bolo_hari_gopal.mp3` | গোবিন্দ বলো হরি গোপাল বলো ভক্তিগীতি | Govind Bolo Hari Gopal Bolo | শ্রী ভক্তিসঙ্গীত মণ্ডল | **7.7 MB** |
-| `om_namo_bhagavate.mp3` | ওঁ নমো ভগবতে বাসুদেবায় স্তোত্র | Om Namo Bhagavate Vasudevaya | বৈদিক স্তোত্র পরিষদ | **3.4 MB** |
-| `radha_krishna_aarti.mp3` | শ্রী শ্রী রাধাকৃষ্ণ নিত্য মঙ্গল আরতি স্তুতি | Radha Krishna Mangala Aarti | মন্দির প্রধান পূজারী পরিষদ | **4.6 MB** |
+| `hare_krishna_kirtan.mp3` | হরে কৃষ্ণ মহামন্ত্র নামসংকীর্তন | Hare Krishna Mahamantra Kirtan | শ্রীল ভক্তিবেদান্ত স্বামী প্রভুপাদ | **5.66 MB** |
+| `achyutam_keshavam.mp3` | অচ্যুতম কেশবম কৃষ্ণ দামোদরম ভজন | Achyutam Keshavam Krishna Bhajan | শ্রী বৃন্দাবন ভক্তিসঙ্গীত সেবা | **5.28 MB** |
+| `radhe_govinda_bhajan.mp3` | রাধে রাধে রাধে বরসানে ওয়ালী রাধে | Radhe Radhe Barsane Wali Radhe | শ্রী বরসানা ধাম মণ্ডল | **8.35 MB** |
+| `govind_bolo_hari_gopal.mp3` | শ্রীকৃষ্ণ গোবিন্দ হরে মুরারী ভজন | Shree Krishna Govind Hare Murari | মান্য অরোরা ও ভক্তিসঙ্গীত পরিষদ | **1.27 MB** |
+| `radha_krishna_aarti.mp3` | শ্রী শ্রী আরতি কুঞ্জবিহারী কি (নিত্য মঙ্গল আরতি) | Aarti Kunj Bihari Ki (Mangala Aarti) | মন্দির প্রধান পূজারী পরিষদ | **3.95 MB** |
+| `om_namo_bhagavate.mp3` | মধুরাষ্টকম স্তোত্র (অধরম মধুরম) | Madhurashtakam (Adharam Madhuram) | শ্রী বল্লভাচার্য বৈদিক পরিষদ | **4.45 MB** |
+| `krishna_flute_meditation.mp3` | শ্রীকৃষ্ণের দিব্য মধুর বাঁশির রাগ ও ধ্যান | Krishna Divine Bamboo Flute (Bansuri Raga) | দিব্য বাঁশরী সেবা | **14.77 MB** |
 
 ---
 
