@@ -63,6 +63,7 @@ server.js
 │       ├── GET  /api/settings              (Public Site Settings)
 │       ├── PUT  /api/settings              (Admin Site Settings Update)
 │       └── GET  /api/settings/admin-stats  (Admin Analytics KPIs: Total Revenue, Donations, Bookings, RSVPs)
+├── Serverless Function Wrapper: backend/functions/api.js (serverless-http)
 ├── notFound middleware
 └── errorHandler middleware
 ```
