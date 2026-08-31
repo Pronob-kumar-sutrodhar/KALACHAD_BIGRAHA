@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --mht-primary: #253d46;
+  --mht-accent: #ae4427;
+  --mht-accent-rgb: 174, 68, 39;
+  --mht-gold: #d4af37;
+  --mht-bg-light: #f8f5f0;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    color: #1f2937;
+    background-color: #ffffff;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .font-lora,
+  .temple-heading {
+    font-family: 'Lora', Georgia, serif;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   KEN BURNS ZOOM & BACKGROUND OVERLAYS
+═══════════════════════════════════════════════════════════ */
+@keyframes kr-bg-zoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.09); }
+}
+
+.animate-kr-zoom {
+  animation: kr-bg-zoom 10s ease-out forwards;
+}
+
+@keyframes kr-content-in {
+  from { transform: translateY(28px); filter: blur(8px); opacity: 0; }
+  to   { transform: translateY(0);    filter: blur(0);   opacity: 1; }
+}
+
+.animate-kr-content {
+  animation: kr-content-in 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RISING GOLD SPIRITUAL PARTICLES (CSS-Only)
+═══════════════════════════════════════════════════════════ */
+.kr-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.kr-particles span {
+  position: absolute;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.65);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+  animation: kr-rise var(--dur, 10s) ease-in var(--delay, 0s) infinite;
+}
+
+.kr-particles span:nth-child(1) { left: 6%;  --dur: 11s; --delay: 0s;   }
+.kr-particles span:nth-child(2) { left: 14%; --dur: 8s;  --delay: 1.5s; width: 2px; height: 2px; }
+.kr-particles span:nth-child(3) { left: 26%; --dur: 13s; --delay: 0.8s; }
+.kr-particles span:nth-child(4) { left: 40%; --dur: 9s;  --delay: 2.2s; width: 4px; height: 4px; background: rgba(232, 124, 42, 0.5); }
+.kr-particles span:nth-child(5) { left: 54%; --dur: 10s; --delay: 1.0s; }
+.kr-particles span:nth-child(6) { left: 68%; --dur: 7s;  --delay: 3.0s; width: 2px; height: 2px; }
+.kr-particles span:nth-child(7) { left: 80%; --dur: 12s; --delay: 0.5s; }
+.kr-particles span:nth-child(8) { left: 92%; --dur: 9s;  --delay: 4.0s; width: 4px; height: 4px; background: rgba(212, 175, 55, 0.4); }
+
+@keyframes kr-rise {
+  0%   { bottom: -10px; opacity: 0;   transform: translateX(0); }
+  15%  { opacity: 1; }
+  85%  { opacity: 0.8; }
+  100% { bottom: 105%;  opacity: 0;   transform: translateX(var(--drift, 25px)); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SACRED GODS TICKER MARQUEE
+═══════════════════════════════════════════════════════════ */
+.kr-gods-marquee {
+  background-color: var(--mht-primary);
+  padding: 16px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.kr-gods-marquee::before,
+.kr-gods-marquee::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 90px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.kr-gods-marquee::before {
+  left: 0;
+  background: linear-gradient(to right, #253d46, transparent);
+}
+
+.kr-gods-marquee::after {
+  right: 0;
+  background: linear-gradient(to left, #253d46, transparent);
+}
+
+.kr-gods-track {
+  display: inline-flex;
+  align-items: center;
+  animation: kr-gods-scroll 55s linear infinite;
+  will-change: transform;
+}
+
+.kr-gods-marquee:hover .kr-gods-track {
+  animation-play-state: paused;
+}
+
+@keyframes kr-gods-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CUSTOM TEMPLE BUTTONS & UTILITIES
+═══════════════════════════════════════════════════════════ */
+@layer components {
+  /* Authentic Lora Sacred Button (matching reference template) */
+  .kr-btn-custom {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background-color: #ae4427;
+    color: #ffffff;
+    border: 1px solid #ae4427;
+    border-radius: 0px;
+    padding: 0 38px;
+    line-height: 56px;
+    height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+  }
+
+  .kr-btn-custom:hover {
+    background-color: transparent;
+    color: #ae4427;
+    border-color: #ae4427;
+  }
+
+  .kr-btn-custom-outline {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 0px;
+    padding: 0 38px;
+    line-height: 56px;
+    height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+  }
+
+  .kr-btn-custom-outline:hover {
+    background-color: #ae4427;
+    color: #ffffff;
+    border-color: #ae4427;
+  }
+
+  .kr-btn-sm {
+    padding: 0 24px;
+    line-height: 44px;
+    height: 44px;
+    font-size: 11px;
+  }
+
+  .btn-primary {
+    @apply kr-btn-custom;
+  }
+
+  .btn-secondary {
+    font-family: 'Lora', Georgia, serif;
+    @apply bg-temple-primary text-white px-7 py-3 font-semibold uppercase tracking-wider text-xs hover:bg-slate-900 transition-all duration-200 inline-flex items-center gap-2 cursor-pointer border border-temple-primary;
+  }
+
+  .btn-outline {
+    font-family: 'Lora', Georgia, serif;
+    @apply border border-temple-accent text-temple-accent px-7 py-3 font-semibold uppercase tracking-wider text-xs hover:bg-temple-accent hover:text-white transition-all duration-200 inline-flex items-center gap-2 cursor-pointer;
+  }
+
+  .section-title {
+    font-family: 'Lora', Georgia, serif;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-temple-primary mb-3 leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-temple-accent font-semibold uppercase tracking-[3px] text-xs md:text-sm mb-3 flex items-center justify-center gap-2;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1.5 hover:shadow-temple-hover;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #f1ede7;
+}
+::-webkit-scrollbar-thumb {
+  background: #253d46;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ae4427;
+}
