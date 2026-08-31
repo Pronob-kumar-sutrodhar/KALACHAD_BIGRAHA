@@ -121,10 +121,9 @@ App.jsx
 
 ## Netlify Production Deployment Configuration
 
-- **Build Base**: `frontend`
-- **Build Command**: `npm run build`
+- **Build Command**: `npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend`
 - **Publish Directory**: `frontend/dist`
+- **Functions Directory**: `backend/functions`
 - **SPA Client-Side Routing**: Configured in `frontend/public/_redirects` (`/*  /index.html  200`) and `netlify.toml`
-- **Environment Variables**:
-  - `VITE_API_URL`: URL of the deployed backend server (e.g. `https://krishna-temple-api.onrender.com`).
+- **Fullstack Routing**: `/api/*` proxies to `/.netlify/functions/api/:splat`
 
