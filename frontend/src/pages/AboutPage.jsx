@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import PageBanner from '../components/PageBanner'
 import GodsTicker from '../components/GodsTicker'
 import VolunteersSection from '../components/VolunteersSection'
+import CommitteeSection from '../components/CommitteeSection'
 import InstagramSection from '../components/InstagramSection'
 import { useLanguage } from '../context/LanguageContext'
 import {
@@ -194,6 +195,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Executive Committee Governance */}
+      <CommitteeSection />
 
       {/* Priests Directory */}
       <VolunteersSection />

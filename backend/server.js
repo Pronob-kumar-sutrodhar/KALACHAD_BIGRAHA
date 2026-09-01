@@ -19,6 +19,7 @@ const pujaRoutes = require('./routes/pujaRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const settingRoutes = require('./routes/settingRoutes');
+const committeeRoutes = require('./routes/committeeRoutes');
 
 const app = express();
 
@@ -54,6 +55,7 @@ apiRouter.use('/pujas', pujaRoutes);
 apiRouter.use('/payment', paymentRoutes);
 apiRouter.use('/contact', contactRoutes);
 apiRouter.use('/settings', settingRoutes);
+apiRouter.use('/committee', committeeRoutes);
 
 // Health check endpoints for Render, monitoring & load balancers
 apiRouter.get('/health', (req, res) => {

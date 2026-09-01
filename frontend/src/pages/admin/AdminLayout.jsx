@@ -6,7 +6,7 @@ import {
   FaChartPie, FaBoxOpen, FaHeart, FaPrayingHands,
   FaCalendarAlt, FaBookOpen, FaShoppingCart, FaEnvelope,
   FaCog, FaSignOutAlt, FaHome, FaBars, FaTimes,
-  FaOm, FaUserShield
+  FaOm, FaUserShield, FaUsers
 } from 'react-icons/fa'
 import toast from 'react-hot-toast'
 import api from '../../services/api'
@@ -82,6 +82,13 @@ export default function AdminLayout() {
       labelEn: 'Orders & Shipments',
       icon: FaShoppingCart,
       badge: stats?.totalOrdersCount,
+    },
+    {
+      path: '/admin/committee',
+      labelBn: 'মন্দির পরিচালনা কমিটি',
+      labelEn: 'Mandir Committee',
+      icon: FaUsers,
+      badge: stats?.committeeCount,
     },
     {
       path: '/admin/inquiries',

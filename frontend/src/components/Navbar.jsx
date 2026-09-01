@@ -27,7 +27,15 @@ export default function Navbar() {
 
   const navLinks = [
     { label: t('nav_home'), href: '/' },
-    { label: t('nav_about'), href: '/about' },
+    {
+      label: t('nav_about'),
+      href: '/about',
+      dropdown: [
+        { label: language === 'bn' ? 'মন্দির পরিচিতি ও ঐতিহ্য' : 'About Mandir History', href: '/about' },
+        { label: language === 'bn' ? 'মন্দির পরিচালনা কমিটি' : 'Mandir Committee', href: '/committee' },
+        { label: language === 'bn' ? 'পূজারী ও আচার্য পরিষদ' : 'Priests & Acharyas', href: '/team' },
+      ],
+    },
     {
       label: t('nav_events'),
       href: '/events',
@@ -65,6 +73,7 @@ export default function Navbar() {
       label: t('nav_pages'),
       href: '#',
       dropdown: [
+        { label: language === 'bn' ? 'মন্দির পরিচালনা কমিটি' : 'Mandir Committee', href: '/committee' },
         { label: t('nav_team'), href: '/team' },
         { label: t('nav_faq'), href: '/faq' },
         ...(user?.isAdmin ? [{ label: language === 'bn' ? '👑 অ্যাডমিন CMS প্যানেল' : '👑 Admin CMS Portal', href: '/admin' }] : []),

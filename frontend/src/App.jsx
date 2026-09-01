@@ -25,6 +25,7 @@ import TeamPage from './pages/TeamPage'
 import FAQPage from './pages/FAQPage'
 import LoginPage from './pages/LoginPage'
 import ContactPage from './pages/ContactPage'
+import CommitteePage from './pages/CommitteePage'
 
 // Admin CMS Pages
 import AdminLayout from './pages/admin/AdminLayout'
@@ -35,6 +36,7 @@ import AdminPujasPage from './pages/admin/AdminPujasPage'
 import AdminEventsPage from './pages/admin/AdminEventsPage'
 import AdminBlogsPage from './pages/admin/AdminBlogsPage'
 import AdminOrdersPage from './pages/admin/AdminOrdersPage'
+import AdminCommitteePage from './pages/admin/AdminCommitteePage'
 import AdminInquiriesPage from './pages/admin/AdminInquiriesPage'
 import api from './services/api'
 import AdminSettingsPage from './pages/admin/AdminSettingsPage'
@@ -93,6 +95,7 @@ function AppContent() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/committee" element={<CommitteePage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/contact" element={<ContactPage />} />
@@ -106,6 +109,7 @@ function AppContent() {
             <Route path="events" element={<AdminEventsPage />} />
             <Route path="blogs" element={<AdminBlogsPage />} />
             <Route path="orders" element={<AdminOrdersPage />} />
+            <Route path="committee" element={<AdminCommitteePage />} />
             <Route path="inquiries" element={<AdminInquiriesPage />} />
             <Route path="settings" element={<AdminSettingsPage />} />
           </Route>

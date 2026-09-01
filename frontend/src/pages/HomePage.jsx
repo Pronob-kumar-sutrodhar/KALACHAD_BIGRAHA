@@ -12,6 +12,7 @@ import CtaBanner from '../components/CtaBanner'
 import DevotionalBanner2 from '../components/DevotionalBanner2'
 import PujaSection from '../components/PujaSection'
 import VolunteersSection from '../components/VolunteersSection'
+import CommitteeSection from '../components/CommitteeSection'
 import LiveBroadcastSection from '../components/LiveBroadcastSection'
 import InstagramSection from '../components/InstagramSection'
 import DonationCard from '../components/DonationCard'
@@ -195,7 +196,10 @@ export default function HomePage() {
       {/* 11. Temple Priests & Acharyas Showcase */}
       <VolunteersSection />
 
-      {/* 12. Live Broadcast, Aarti Schedule & Video Gallery */}
+      {/* 12. Mandir Executive Committee Board Showcase */}
+      <CommitteeSection limit={6} />
+
+      {/* 13. Live Broadcast, Aarti Schedule & Video Gallery */}
       <LiveBroadcastSection />
 
       {/* 13. News Feed & Vedic Wisdom Blog Section */}

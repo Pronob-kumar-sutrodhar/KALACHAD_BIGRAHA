@@ -6,7 +6,7 @@ import LoadingSpinner from '../../components/LoadingSpinner'
 import {
   FaHeart, FaShoppingCart, FaPrayingHands, FaCalendarAlt,
   FaBoxOpen, FaBookOpen, FaEnvelope, FaCheckCircle,
-  FaArrowRight, FaPlus, FaMoneyBillWave, FaClock
+  FaArrowRight, FaPlus, FaMoneyBillWave, FaClock, FaUsers
 } from 'react-icons/fa'
 
 export default function AdminDashboardPage() {
@@ -150,8 +150,8 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* ── Secondary Quick Metric Counts ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="bg-white p-4 border border-gray-200 flex items-center gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <Link to="/admin/products" className="bg-white p-4 border border-gray-200 hover:border-temple-accent flex items-center gap-3 transition-colors">
           <div className="w-10 h-10 bg-temple-light text-temple-primary flex items-center justify-center text-lg">
             <FaBoxOpen />
           </div>
@@ -159,9 +159,19 @@ export default function AdminDashboardPage() {
             <span className="text-xs text-gray-500 block">{language === 'bn' ? 'মোট পণ্য সংখ্যা' : 'Store Products'}</span>
             <strong className="font-lora text-lg text-temple-primary">{m.productsCount || 0} টি</strong>
           </div>
-        </div>
+        </Link>
 
-        <div className="bg-white p-4 border border-gray-200 flex items-center gap-3">
+        <Link to="/admin/committee" className="bg-white p-4 border border-gray-200 hover:border-temple-accent flex items-center gap-3 transition-colors">
+          <div className="w-10 h-10 bg-orange-50 text-temple-accent flex items-center justify-center text-lg">
+            <FaUsers />
+          </div>
+          <div>
+            <span className="text-xs text-gray-500 block">{language === 'bn' ? 'পরিচালনা কমিটি' : 'Committee'}</span>
+            <strong className="font-lora text-lg text-temple-accent">{m.committeeCount || 0} জন</strong>
+          </div>
+        </Link>
+
+        <Link to="/admin/blogs" className="bg-white p-4 border border-gray-200 hover:border-temple-accent flex items-center gap-3 transition-colors">
           <div className="w-10 h-10 bg-temple-light text-temple-primary flex items-center justify-center text-lg">
             <FaBookOpen />
           </div>
@@ -169,9 +179,9 @@ export default function AdminDashboardPage() {
             <span className="text-xs text-gray-500 block">{language === 'bn' ? 'ধর্মপ্রবন্ধ সংখ্যা' : 'Katha Blogs'}</span>
             <strong className="font-lora text-lg text-temple-primary">{m.blogsCount || 0} টি</strong>
           </div>
-        </div>
+        </Link>
 
-        <div className="bg-white p-4 border border-gray-200 flex items-center gap-3">
+        <Link to="/admin/inquiries" className="bg-white p-4 border border-gray-200 hover:border-temple-accent flex items-center gap-3 transition-colors">
           <div className="w-10 h-10 bg-temple-light text-temple-primary flex items-center justify-center text-lg">
             <FaEnvelope />
           </div>
@@ -179,7 +189,7 @@ export default function AdminDashboardPage() {
             <span className="text-xs text-gray-500 block">{language === 'bn' ? 'প্রার্থনা বার্তা' : 'Prayers / Msg'}</span>
             <strong className="font-lora text-lg text-temple-primary">{m.contactsCount || 0} টি</strong>
           </div>
-        </div>
+        </Link>
 
         <div className="bg-white p-4 border border-gray-200 flex items-center gap-3">
           <div className="w-10 h-10 bg-temple-light text-temple-primary flex items-center justify-center text-lg">

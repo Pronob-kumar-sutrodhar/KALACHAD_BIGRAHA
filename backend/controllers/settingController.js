@@ -9,6 +9,7 @@ const PujaBooking = require('../models/PujaBooking');
 const Blog = require('../models/Blog');
 const Contact = require('../models/Contact');
 const User = require('../models/User');
+const Committee = require('../models/Committee');
 
 // @desc    Get site settings
 // @route   GET /api/settings
@@ -49,6 +50,7 @@ const getAdminStats = asyncHandler(async (req, res) => {
     blogsCount,
     contacts,
     usersCount,
+    committeeCount,
   ] = await Promise.all([
     Product.countDocuments(),
     Order.find().sort({ createdAt: -1 }),
@@ -59,6 +61,7 @@ const getAdminStats = asyncHandler(async (req, res) => {
     Blog.countDocuments(),
     Contact.find().sort({ createdAt: -1 }),
     User.countDocuments(),
+    Committee.countDocuments(),
   ]);
 
   const totalStoreRevenue = orders
@@ -95,6 +98,7 @@ const getAdminStats = asyncHandler(async (req, res) => {
       blogsCount,
       contactsCount: contacts.length,
       usersCount,
+      committeeCount,
     },
     recentOrders: orders.slice(0, 5),
     recentDonations: donations.slice(0, 5),
