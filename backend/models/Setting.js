@@ -20,11 +20,11 @@ const settingSchema = new mongoose.Schema(
     },
     addressBn: {
       type: String,
-      default: '১০৮ শ্রী ধাম রোড, বৃন্দাবন ধাম মার্গ',
+      default: 'ব্রহ্মগাছা, রায়গঞ্জ, সিরাজগঞ্জ',
     },
     addressEn: {
       type: String,
-      default: '108 Sacred Way, Vrindavan Dham Blvd',
+      default: 'Brahmagacha, Raiganj, Sirajganj, Bangladesh',
     },
     openingHoursBn: {
       type: String,

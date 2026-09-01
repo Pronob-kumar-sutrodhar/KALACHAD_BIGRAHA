@@ -47,7 +47,7 @@ export default function ContactPage() {
     <div className="w-full">
       <PageBanner
         title={language === 'bn' ? 'মন্দির কর্তৃপক্ষের সাথে যোগাযোগ' : 'Contact Our Mandir'}
-        subtitle={language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ মহা মন্দির' : 'We Are Here to Guide & Assist'}
+        subtitle={language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির' : 'We Are Here to Guide & Assist'}
         breadcrumb={[{ label: language === 'bn' ? 'যোগাযোগ' : 'Contact Us' }]}
       />
       <GodsTicker />
@@ -89,7 +89,7 @@ export default function ContactPage() {
               {language === 'bn' ? 'মন্দিরের ঠিকানা' : 'Temple Location'}
             </h4>
             <p className="text-xs sm:text-sm text-gray-600 font-semibold">
-              {language === 'bn' ? '১০৮ শ্রী ধাম রোড, বৃন্দাবন ধাম মার্গ' : '108 Sacred Way, Vrindavan Dham Blvd'}
+              {language === 'bn' ? 'ব্রহ্মগাছা, রায়গঞ্জ, সিরাজগঞ্জ' : 'Brahmagacha, Raiganj, Sirajganj, Bangladesh'}
             </p>
             <p className="text-xs text-gray-500 mt-1">
               {language === 'bn' ? 'বিনামূল্যে পার্কিং সুবিধা রয়েছে' : 'Complimentary Parking Area'}

@@ -78,7 +78,7 @@ export default function Footer() {
               </div>
               <div className="flex items-start gap-3">
                 <FaMapMarkerAlt className="text-temple-gold text-xs shrink-0 mt-0.5" />
-                <span>{language === 'bn' ? '১০৮ শ্রী ধাম রোড, বৃন্দাবন ধাম মার্গ' : '108 Sacred Way, Vrindavan Dham Blvd'}</span>
+                <span>{language === 'bn' ? 'ব্রহ্মগাছা, রায়গঞ্জ, সিরাজগঞ্জ' : 'Brahmagacha, Raiganj, Sirajganj, Bangladesh'}</span>
               </div>
             </div>
           </div>
