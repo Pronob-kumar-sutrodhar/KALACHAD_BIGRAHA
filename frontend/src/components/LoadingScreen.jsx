@@ -7,7 +7,7 @@ import React from 'react'
  */
 export default function LoadingScreen({
   fullScreen = true,
-  title = 'শ্রী শ্রী কৃষ্ণ মহা মন্দির',
+  title = 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির',
   subtitle = 'হরে কৃষ্ণ হরে কৃষ্ণ কৃষ্ণ কৃষ্ণ হরে হরে',
   showBar = true,
   bgColor = '#FF7722',

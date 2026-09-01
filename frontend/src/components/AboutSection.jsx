@@ -59,15 +59,15 @@ export default function AboutSection() {
 
               <h2 className="font-lora text-3xl sm:text-4xl lg:text-[40px] font-bold text-temple-primary leading-tight">
                 {language === 'bn'
-                  ? 'আমরা ভগবান শ্রীকৃষ্ণ ও সনাতন ধর্মে সমর্পিত'
-                  : 'We Are Devoted to Lord Krishna & Sanatan Dharma'}
+                  ? 'আমরা শ্রী শ্রী কালাচাঁদ বিগ্রহ ও সনাতন ধর্মে সমর্পিত'
+                  : 'Devoted to Sri Sri Kalachand Bigraha & Sanatan Dharma'}
               </h2>
             </div>
 
             <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
               {language === 'bn'
-                ? 'শ্রী শ্রী কৃষ্ণ মহা মন্দির সর্বজনীন প্রেম, পারমার্থিক শান্তি ও বৈদিক প্রজ্ঞার এক মহান পীঠস্থান। প্রতিদিনের পূজা-অর্চনা, শ্রীমদ্ভগবদ্গীতা পাঠ, আকুল হরিনাম সংকীর্তন এবং অন্নদান সেবার মাধ্যমে ভক্ত ও সন্ধানীদের ভগবানের পরম কৃপা লাভে আমরা সর্বদা নিয়োজিত।'
-                : 'The Krishna Mega Temple stands as a sacred spiritual sanctuary dedicated to spreading universal love, peace, and transcendental wisdom. Through daily puja ceremonies, Vedic discourses, devotional kirtan, and humanitarian seva, we welcome seekers from every walk of life to experience divine grace.'}
+                ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির সর্বজনীন প্রেম, পারমার্থিক শান্তি ও বৈদিক প্রজ্ঞার এক মহান পীঠস্থান। প্রতিদিনের পূজা-অর্চনা, শ্রীমদ্ভগবদ্গীতা পাঠ, আকুল হরিনাম সংকীর্তন এবং অন্নদান সেবার মাধ্যমে ভক্ত ও সন্ধানীদের ভগবানের পরম কৃপা লাভে আমরা সর্বদা নিয়োজিত।'
+                : 'The Sri Sri Kalachand Bigraha Union Central Temple stands as a sacred spiritual sanctuary dedicated to spreading universal love, peace, and transcendental wisdom. Through daily puja ceremonies, Vedic discourses, devotional kirtan, and humanitarian seva, we welcome seekers from every walk of life to experience divine grace.'}
             </p>
 
             {/* Devotional Pillars */}

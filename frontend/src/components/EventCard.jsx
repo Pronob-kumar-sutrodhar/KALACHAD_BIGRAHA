@@ -54,7 +54,7 @@ export default function EventCard({ event, onRegister }) {
 
           <div className="flex items-center gap-2 text-gray-600 text-xs">
             <FaMapMarkerAlt className="text-temple-accent shrink-0" />
-            <span className="line-clamp-1">{event.location || (language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ মহা মন্দির • মূল নাটমন্দির' : 'Krishna Mega Temple • Main Sanctum')}</span>
+            <span className="line-clamp-1">{event.location || (language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির • মূল নাটমন্দির' : 'Sri Sri Kalachand Bigraha Central Temple • Main Sanctum')}</span>
           </div>
         </div>
 

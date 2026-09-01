@@ -4,11 +4,11 @@ const settingSchema = new mongoose.Schema(
   {
     templeNameBn: {
       type: String,
-      default: 'শ্রী শ্রী কৃষ্ণ মহা মন্দির',
+      default: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির',
     },
     templeNameEn: {
       type: String,
-      default: 'Krishna Mega Temple',
+      default: 'Sri Sri Kalachand Bigraha Union Central Temple',
     },
     phone: {
       type: String,
@@ -40,27 +40,27 @@ const settingSchema = new mongoose.Schema(
     },
     marqueeNoticeBn: {
       type: String,
-      default: 'ॐ নমো ভগবতে বাসুদেবায় • হরে কৃষ্ণ হরে কৃষ্ণ কৃষ্ণ কৃষ্ণ হরে হরে হরে রাম হরে রাম রাম রাম হরে হরে • জয় শ্রী রাধে',
+      default: 'ॐ নমো ভগবতে বাসুদেবায় • হরে কৃষ্ণ হরে কৃষ্ণ কৃষ্ণ কৃষ্ণ হরে হরে হরে রাম হরে রাম রাম রাম হরে হরে • জয় শ্রী কালাচাঁদ বিগ্রহ',
     },
     marqueeNoticeEn: {
       type: String,
-      default: 'Om Namo Bhagavate Vasudevaya • Hare Krishna Mahamantra • Jai Sri Radhe Krishna',
+      default: 'Om Namo Bhagavate Vasudevaya • Hare Krishna Mahamantra • Jai Sri Kalachand Bigraha',
     },
     heroSlide1TitleBn: {
       type: String,
-      default: 'শ্রী শ্রী রাধাকৃষ্ণ পরম ধাম ও অখণ্ড হরিনাম সংকীর্তন',
+      default: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ পরম ধাম ও অখণ্ড হরিনাম সংকীর্তন',
     },
     heroSlide1TitleEn: {
       type: String,
-      default: 'Lord Krishna Transcendental Sanctuary & Eternal Darshan',
+      default: 'Sri Sri Kalachand Bigraha Transcendental Sanctuary & Eternal Darshan',
     },
     heroSlide1SubtitleBn: {
       type: String,
-      default: 'শ্রী শ্রী কৃষ্ণ মহা মন্দিরে আপনাকে স্বাগতম',
+      default: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দিরে আপনাকে স্বাগতম',
     },
     heroSlide1SubtitleEn: {
       type: String,
-      default: 'Welcome to Sri Sri Krishna Mega Temple',
+      default: 'Welcome to Sri Sri Kalachand Bigraha Union Central Temple',
     },
   },
   {

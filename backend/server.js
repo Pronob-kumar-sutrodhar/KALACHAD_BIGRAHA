@@ -62,7 +62,7 @@ apiRouter.get('/health', (req, res) => {
 
 apiRouter.get('/', (req, res) => {
   res.json({
-    message: 'Sri Sri Krishna Mega Temple API is running...',
+    message: 'Sri Sri Kalachand Bigraha Union Central Temple API is running...',
     status: 'online',
     timestamp: new Date(),
   });
@@ -79,7 +79,7 @@ app.get('/health', (req, res) => {
 
 app.get('/', (req, res) => {
   res.json({
-    message: 'Sri Sri Krishna Mega Temple API is running...',
+    message: 'Sri Sri Kalachand Bigraha Union Central Temple API is running...',
     status: 'online',
     timestamp: new Date(),
   });

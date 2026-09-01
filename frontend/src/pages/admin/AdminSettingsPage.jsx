@@ -13,8 +13,8 @@ export default function AdminSettingsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [formData, setFormData] = useState({
-    templeNameBn: 'শ্রী শ্রী কৃষ্ণ মহা মন্দির',
-    templeNameEn: 'Krishna Mega Temple',
+    templeNameBn: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির',
+    templeNameEn: 'Sri Sri Kalachand Bigraha Union Central Temple',
     phone: '+৮৮০ ১৭০০-০০০০০০',
     email: 'info@krishnamatemple.org',
     addressBn: '১০৮ শ্রী ধাম রোড, বৃন্দাবন ধাম মার্গ',
@@ -22,12 +22,12 @@ export default function AdminSettingsPage() {
     openingHoursBn: 'প্রতিদিন সকাল ৪:১৫ – রাত ৯:৩০ পর্যন্ত',
     openingHoursEn: 'Daily 04:15 AM – 09:30 PM EST',
     liveStreamUrl: 'https://www.youtube.com/embed/live_stream?channel=UCkrishnamandir',
-    marqueeNoticeBn: 'ॐ নমো ভগবতে বাসুদেবায় • হরে কৃষ্ণ হরে কৃষ্ণ কৃষ্ণ কৃষ্ণ হরে হরে হরে রাম হরে রাম রাম রাম হরে হরে • জয় শ্রী রাধে',
-    marqueeNoticeEn: 'Om Namo Bhagavate Vasudevaya • Hare Krishna Mahamantra • Jai Sri Radhe Krishna',
-    heroSlide1TitleBn: 'শ্রী শ্রী রাধাকৃষ্ণ পরম ধাম ও অখণ্ড হরিনাম সংকীর্তন',
-    heroSlide1TitleEn: 'Lord Krishna Transcendental Sanctuary & Eternal Darshan',
-    heroSlide1SubtitleBn: 'শ্রী শ্রী কৃষ্ণ মহা মন্দিরে আপনাকে স্বাগতম',
-    heroSlide1SubtitleEn: 'Welcome to Sri Sri Krishna Mega Temple',
+    marqueeNoticeBn: 'ॐ নমো ভগবতে বাসুদেবায় • হরে কৃষ্ণ হরে কৃষ্ণ কৃষ্ণ কৃষ্ণ হরে হরে হরে রাম হরে রাম রাম রাম হরে হরে • জয় শ্রী কালাচাঁদ বিগ্রহ',
+    marqueeNoticeEn: 'Om Namo Bhagavate Vasudevaya • Hare Krishna Mahamantra • Jai Sri Kalachand Bigraha',
+    heroSlide1TitleBn: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ পরম ধাম ও অখণ্ড হরিনাম সংকীর্তন',
+    heroSlide1TitleEn: 'Sri Sri Kalachand Bigraha Transcendental Sanctuary & Eternal Darshan',
+    heroSlide1SubtitleBn: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দিরে আপনাকে স্বাগতম',
+    heroSlide1SubtitleEn: 'Welcome to Sri Sri Kalachand Bigraha Union Central Temple',
   })
 
   useEffect(() => {

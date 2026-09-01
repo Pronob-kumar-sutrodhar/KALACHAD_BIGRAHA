@@ -57,7 +57,7 @@ export default function AboutPage() {
     <div className="w-full">
       <PageBanner
         title={language === 'bn' ? 'মন্দির পরিচিতি ও ঐতিহ্য' : 'About Our Mandir'}
-        subtitle={language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ মহা মন্দির' : 'Heritage & Divine Vision'}
+        subtitle={language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির' : 'Heritage & Divine Vision'}
         breadcrumb={[{ label: language === 'bn' ? 'পরিচিতি' : 'About Us' }]}
       />
       <GodsTicker />
@@ -77,8 +77,8 @@ export default function AboutPage() {
 
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
               {language === 'bn'
-                ? '১৯৯৯ সালে প্রতিষ্ঠিত শ্রী শ্রী কৃষ্ণ মহা মন্দির বিশ্বজুড়ে সনাতন ধর্মের শাশ্বত বাণী প্রচার, সর্বজনীন ঐক্য এবং নিঃস্বার্থ মানবসেবায় এক অনন্য প্রতিষ্ঠান। প্রতিদিন শত শত ভক্ত এখানে এসে শ্রী শ্রী রাধাকৃষ্ণের রূপ দর্শন করে মনের পরম প্রশান্তি লাভ করেন।'
-                : 'Founded in 1999, the Krishna Mega Temple serves as an international spiritual beacon dedicated to spreading universal love, peace, and transcendental Vedic wisdom. Through daily puja ceremonies, Vedic discourses, devotional kirtan, and humanitarian seva, we welcome seekers from every walk of life.'}
+                ? '১৯৯৯ সালে প্রতিষ্ঠিত শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির সনাতন ধর্মের শাশ্বত বাণী প্রচার, সর্বজনীন ঐক্য এবং নিঃস্বার্থ মানবসেবায় এক অনন্য প্রতিষ্ঠান। প্রতিদিন শত শত ভক্ত এখানে এসে শ্রী শ্রী কালাচাঁদ বিগ্রহের রূপ দর্শন করে মনের পরম প্রশান্তি লাভ করেন।'
+                : 'Founded in 1999, the Sri Sri Kalachand Bigraha Union Central Temple serves as an international spiritual beacon dedicated to spreading universal love, peace, and transcendental Vedic wisdom. Through daily puja ceremonies, Vedic discourses, devotional kirtan, and humanitarian seva, we welcome seekers from every walk of life.'}
             </p>
 
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed">

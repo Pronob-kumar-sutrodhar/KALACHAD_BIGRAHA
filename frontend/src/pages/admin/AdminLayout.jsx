@@ -128,7 +128,7 @@ export default function AdminLayout() {
             </div>
             <div>
               <h1 className="font-lora text-base sm:text-lg font-bold text-white leading-none">
-                {language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ মন্দির ম্যানেজমেন্ট' : 'Krishna Temple CMS & Admin'}
+                {language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ কেন্দ্রীয় মন্দির CMS' : 'Kalachand Bigraha Union Central Temple CMS'}
               </h1>
               <span className="text-[10px] text-temple-gold font-mono tracking-wider">
                 LIVE PRODUCTION CMS &bull; BDT STANDARD
@@ -212,7 +212,7 @@ export default function AdminLayout() {
 
           {/* Sidebar Footer Info */}
           <div className="p-4 border-t border-white/10 bg-black/40 text-[11px] text-white/60 space-y-2">
-            <p className="font-semibold text-white/80">Sri Sri Krishna Mega Temple</p>
+            <p className="font-semibold text-white/80">Sri Sri Kalachand Bigraha Central Temple</p>
             <p>Database: MongoDB Atlas (Live)</p>
             <p className="text-[10px] text-temple-gold">Currency: BDT (৳) &bull; Stripe Gateway</p>
 

@@ -186,11 +186,11 @@ export default function Navbar() {
               <FaOm />
             </div>
             <div className="leading-tight">
-              <span className="font-lora text-xl sm:text-2xl font-bold text-temple-primary block group-hover:text-temple-accent transition-colors">
-                {language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ' : 'Krishna'}
+              <span className="font-lora text-base sm:text-xl font-bold text-temple-primary block group-hover:text-temple-accent transition-colors">
+                {language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ' : 'Sri Sri Kalachand Bigraha'}
               </span>
-              <span className="text-[10px] font-semibold tracking-[2px] uppercase text-gray-500 block">
-                {language === 'bn' ? 'মহা মন্দির সেবাশ্রম' : 'Mega Temple'}
+              <span className="text-[10px] sm:text-[11px] font-semibold tracking-[1px] sm:tracking-[1.5px] uppercase text-gray-500 block">
+                {language === 'bn' ? 'ইউনিয়ন কেন্দ্রীয় মন্দির' : 'Union Central Temple'}
               </span>
             </div>
           </Link>

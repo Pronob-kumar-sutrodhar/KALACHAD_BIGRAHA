@@ -30,7 +30,7 @@ export default function PageBanner({ title, subtitle, breadcrumb = [] }) {
           ) : (
             <div className="inline-flex items-center gap-2 text-temple-gold font-semibold uppercase tracking-[3px] text-xs">
               <FaOm className="text-xs" />
-              <span>Krishna Mega Temple</span>
+              <span>Sri Sri Kalachand Bigraha Union Central Temple</span>
             </div>
           )}
           <h1 className="font-lora text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">

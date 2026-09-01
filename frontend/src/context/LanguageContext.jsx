@@ -5,8 +5,8 @@ const LanguageContext = createContext()
 export const TRANSLATIONS = {
   bn: {
     // Topbar & Branding
-    site_title: 'শ্রী শ্রী কৃষ্ণ মহা মন্দির',
-    site_tagline: 'শ্রী শ্রী রাধাকৃষ্ণ সেবাশ্রম ও নিত্য দর্শন',
+    site_title: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির',
+    site_tagline: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ সেবাশ্রম ও নিত্য দর্শন',
     call_us: 'মন্দির হেল্পলাইন',
     live_darshan: 'অনলাইন দর্শন',
     sermons: 'ধর্মকথা',
@@ -38,25 +38,25 @@ export const TRANSLATIONS = {
     nav_contact: 'যোগাযোগ',
 
     // Hero Slider
-    hero_slide1_badge: 'পরম করুণাময় শ্রী শ্রী রাধাকৃষ্ণ',
-    hero_slide1_title: 'কৃষ্ণ ভক্তি ও শান্তির পবিত্র ধাম',
-    hero_slide1_desc: 'শ্রী শ্রী কৃষ্ণ মহা মন্দিরে আপনাকে স্বাগতম। নিত্য হরিনাম সংকীর্তন, মঙ্গল আরতি এবং অন্নদান সেবায় যুক্ত হয়ে পারমার্থিক শান্তি লাভ করুন।',
+    hero_slide1_badge: 'পরম করুণাময় শ্রী শ্রী কালাচাঁদ বিগ্রহ',
+    hero_slide1_title: 'কালাচাঁদ ভক্তি ও শান্তির পবিত্র ধাম',
+    hero_slide1_desc: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দিরে আপনাকে স্বাগতম। নিত্য হরিনাম সংকীর্তন, মঙ্গল আরতি এবং অন্নদান সেবায় যুক্ত হয়ে পারমার্থিক শান্তি লাভ করুন।',
     hero_slide1_btn1: 'পূজা সংকল্প বুক করুন',
     hero_slide1_btn2: 'অন্নদান সেবা দিন',
 
     hero_slide2_badge: 'নিত্য মঙ্গল আরতি ও বেদ পাঠ',
     hero_slide2_title: 'অন্তরের শান্তি ও ভগবৎ প্রেম লাভ',
-    hero_slide2_desc: 'প্রতিদিন ভোর ৪:১৫ মিনিট থেকে রাত্রি ৯:০০ ঘটিকা পর্যন্ত ভক্তদের দর্শনের জন্য মন্দির উন্মুক্ত। আসুন এবং শ্রীকৃষ্ণের শ্রীপাদপদ্মে নিজেকে সমর্পণ করুন।',
+    hero_slide2_desc: 'প্রতিদিন ভোর ৪:১৫ মিনিট থেকে রাত্রি ৯:০০ ঘটিকা পর্যন্ত ভক্তদের দর্শনের জন্য মন্দির উন্মুক্ত। আসুন এবং শ্রী শ্রী কালাচাঁদ বিগ্রহের শ্রীপাদপদ্মে নিজেকে সমর্পণ করুন।',
     hero_slide2_btn1: 'আসন্ন উৎসবসমূহ',
     hero_slide2_btn2: 'মন্দির ভাণ্ডার দেখুন',
 
     // Marquee Mantras
-    mantra_ticker: 'হরে কৃষ্ণ হরে কৃষ্ণ কৃষ্ণ কৃষ্ণ হরে হরে • হরে রাম হরে রাম রাম রাম হরে হরে • ওঁ নমো ভগবতে বাসুদেবায় • গোবিন্দ জয় জয় গোপাল জয় জয় • শ্রী রাধা মাধব জী কি জয় • শ্রীমদ্ভগবদ্গীতা মাহাত্ম্য',
+    mantra_ticker: 'হরে কৃষ্ণ হরে কৃষ্ণ কৃষ্ণ কৃষ্ণ হরে হরে • হরে রাম হরে রাম রাম রাম হরে হরে • ওঁ নমো ভগবতে বাসুদেবায় • জয় শ্রী কালাচাঁদ বিগ্রহ জী কি জয় • গোবিন্দ জয় জয় গোপাল জয় জয় • শ্রীমদ্ভগবদ্গীতা মাহাত্ম্য',
 
     // Features
     about_badge: 'মন্দিরের ঐতিহ্য ও সেবা',
     about_title: 'ভক্তি, শান্তি ও সর্বজনীন কল্যাণের পবিত্র তীর্থ',
-    about_p1: '১৯৯৯ সালে প্রতিষ্ঠিত শ্রী শ্রী কৃষ্ণ মহা মন্দির বিশ্বব্যাপী সনাতন ধর্মের শাশ্বত বাণী প্রচার এবং মানবসেবায় নিবেদিত। প্রতিদিন শত শত ভক্ত এখানে এসে শ্রী শ্রী রাধামাধবের দিব্য দর্শন লাভ করেন।',
+    about_p1: '১৯৯৯ সালে প্রতিষ্ঠিত শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির সনাতন ধর্মের শাশ্বত বাণী প্রচার এবং মানবসেবায় নিবেদিত। প্রতিদিন শত শত ভক্ত এখানে এসে শ্রী শ্রী কালাচাঁদ বিগ্রহের দিব্য দর্শন লাভ করেন।',
     about_btn: 'মন্দির সম্পর্কে জানুন',
 
     // Festival Banner
@@ -103,7 +103,7 @@ export const TRANSLATIONS = {
 
   en: {
     // Topbar & Branding
-    site_title: 'Krishna Mega Temple',
+    site_title: 'Sri Sri Kalachand Bigraha Union Central Temple',
     site_tagline: 'Divine Love & Eternal Devotion',
     call_us: 'Mandir Hotline',
     live_darshan: 'Online Darshan',
@@ -136,25 +136,25 @@ export const TRANSLATIONS = {
     nav_contact: 'Contact Us',
 
     // Hero Slider
-    hero_slide1_badge: 'Supreme Lord Sri Sri Radha Krishna',
-    hero_slide1_title: 'Sacred Sanctuary of Krishna Bhakti & Peace',
-    hero_slide1_desc: 'Welcome to Krishna Mega Temple. Immerse yourself in daily Harinam Sankirtan, Mangala Aarti, and Annadaan Mahaprasad Seva for transcendental peace.',
+    hero_slide1_badge: 'Supreme Lord Sri Sri Kalachand Bigraha',
+    hero_slide1_title: 'Sacred Sanctuary of Kalachand Bhakti & Peace',
+    hero_slide1_desc: 'Welcome to Sri Sri Kalachand Bigraha Union Central Temple. Immerse yourself in daily Harinam Sankirtan, Mangala Aarti, and Annadaan Mahaprasad Seva for transcendental peace.',
     hero_slide1_btn1: 'Book Puja Sankalp',
     hero_slide1_btn2: 'Donate Annadaan Seva',
 
     hero_slide2_badge: 'Daily Mangala Aarti & Vedic Katha',
     hero_slide2_title: 'Awaken Inner Serenity & Divine Love',
-    hero_slide2_desc: 'The temple sanctum opens daily from 04:15 AM to 09:00 PM for all devotees. Surrender unto the lotus feet of Sri Krishna and discover true bliss.',
+    hero_slide2_desc: 'The temple sanctum opens daily from 04:15 AM to 09:00 PM for all devotees. Surrender unto the lotus feet of Sri Sri Kalachand Bigraha and discover true bliss.',
     hero_slide2_btn1: 'Explore Festivals',
     hero_slide2_btn2: 'Visit Temple Store',
 
     // Marquee Mantras
-    mantra_ticker: 'Hare Krishna Hare Krishna Krishna Krishna Hare Hare • Hare Rama Hare Rama Rama Rama Hare Hare • Om Namo Bhagavate Vasudevaya • Govinda Jaya Jaya Gopala Jaya Jaya • Sri Radha Madhava Ki Jai',
+    mantra_ticker: 'Hare Krishna Hare Krishna Krishna Krishna Hare Hare • Hare Rama Hare Rama Rama Rama Hare Hare • Om Namo Bhagavate Vasudevaya • Jai Sri Kalachand Bigraha Ji Ki Jai • Govinda Jaya Jaya Gopala Jaya Jaya',
 
     // Features
     about_badge: 'Heritage & Divine Vision',
     about_title: 'A Spiritual Sanctuary for Peace, Wisdom & Devotion',
-    about_p1: 'Established in 1999 under the divine inspiration of Vedic Acharyas, the Krishna Mega Temple serves as an international beacon of Sanatan Dharma and selfless Annadaan service.',
+    about_p1: 'Established in 1999 under the divine inspiration of Vedic Acharyas, the Sri Sri Kalachand Bigraha Union Central Temple serves as an international beacon of Sanatan Dharma and selfless Annadaan service.',
     about_btn: 'Learn About Mandir',
 
     // Festival Banner

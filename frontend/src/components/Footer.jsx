@@ -52,11 +52,11 @@ export default function Footer() {
                 <FaOm />
               </div>
               <div>
-                <span className="font-lora text-xl font-bold text-white block">
-                  {language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ মহা মন্দির' : 'Krishna Mega Temple'}
+                <span className="font-lora text-lg sm:text-xl font-bold text-white block">
+                  {language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির' : 'Sri Sri Kalachand Bigraha Union Central Temple'}
                 </span>
                 <span className="text-[10px] font-semibold tracking-[2px] uppercase text-temple-gold block">
-                  {language === 'bn' ? 'সনাতন ধর্ম সেবাশ্রম' : 'Sanatan Dharma Mandir'}
+                  {language === 'bn' ? 'সনাতন ধর্ম সেবাশ্রম' : 'Sanatan Dharma Central Mandir'}
                 </span>
               </div>
             </div>
@@ -150,7 +150,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           {/* Copyright Notice */}
           <p className="text-xs text-white/70 order-2 md:order-1">
-            &copy; {new Date().getFullYear()} {language === 'bn' ? 'শ্রী শ্রী কৃষ্ণ মহা মন্দির। সর্বস্বত্ব সংরক্ষিত।' : 'Krishna Mega Temple. All rights reserved.'}
+            &copy; {new Date().getFullYear()} {language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির। সর্বস্বত্ব সংরক্ষিত।' : 'Sri Sri Kalachand Bigraha Union Central Temple. All rights reserved.'}
           </p>
 
           {/* Developer Signature with Fine Glow */}
