@@ -92,6 +92,9 @@ export default function Footer() {
 
             {/* Developer Info (Exact matching footer style without extra details) */}
             <div className="pt-4 border-t border-white/10 space-y-2 text-xs text-white/85">
+              <h4 className="font-lora text-sm font-bold text-white">
+                {language === 'bn' ? 'ডেভেলপার তথ্য' : 'Developer Information'}
+              </h4>
               <div>
                 <span className="font-bold text-temple-gold text-xs tracking-wider block">
                   PRONOB KUMAR SUTRODHAR
