@@ -292,11 +292,12 @@ export default function AdminCommitteePage() {
                   <td className="py-3 px-4">
                     <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-temple-gold/40 shadow-xs bg-slate-100">
                       <img
-                        src={member.photo || '/assets/img/volunteers/1.webp'}
+                        src={member.photo || '/assets/img/people/1.webp'}
                         alt={member.nameEn}
                         className="w-full h-full object-cover object-top"
                         onError={(e) => {
-                          e.target.src = '/assets/img/volunteers/1.webp'
+                          e.currentTarget.onerror = null
+                          e.currentTarget.src = '/assets/img/people/1.webp'
                         }}
                       />
                     </div>
@@ -501,11 +502,12 @@ export default function AdminCommitteePage() {
                   />
                   <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-300 shrink-0 bg-slate-100">
                     <img
-                      src={formData.photo || '/assets/img/volunteers/1.webp'}
+                      src={formData.photo || '/assets/img/people/1.webp'}
                       alt="Preview"
                       className="w-full h-full object-cover object-top"
                       onError={(e) => {
-                        e.target.src = '/assets/img/volunteers/1.webp'
+                        e.currentTarget.onerror = null
+                        e.currentTarget.src = '/assets/img/people/1.webp'
                       }}
                     />
                   </div>

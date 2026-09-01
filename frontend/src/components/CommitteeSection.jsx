@@ -200,7 +200,8 @@ export default function CommitteeSection({
                           alt={name}
                           className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
                           onError={(e) => {
-                            e.target.src = `/assets/img/volunteers/${(index % 6) + 1}.webp`
+                            e.currentTarget.onerror = null
+                            e.currentTarget.src = '/assets/img/people/1.webp'
                           }}
                         />
                       </div>
