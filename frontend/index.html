@@ -10,8 +10,171 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Noto+Serif+Bengali:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      /* Sacred Om Loading Screen */
+      .temple-preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #FF7722;
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        user-select: none;
+      }
+      .temple-preloader.fade-out {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .temple-preloader-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+        max-width: 480px;
+        width: 90%;
+      }
+      .temple-om-wrapper {
+        position: relative;
+        width: 140px;
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+      }
+      .temple-om-symbol {
+        width: 110px;
+        height: 110px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.75));
+        animation: templeOmBreath 2.4s ease-in-out infinite alternate;
+      }
+      .temple-om-halo {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 2px dashed rgba(255, 255, 255, 0.45);
+        animation: templeHaloSpin 14s linear infinite;
+        pointer-events: none;
+      }
+      .temple-om-halo::before {
+        content: '';
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+      @keyframes templeOmBreath {
+        0% {
+          transform: scale(0.96);
+          filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.5));
+        }
+        100% {
+          transform: scale(1.06);
+          filter: drop-shadow(0 0 32px rgba(255, 255, 255, 0.95));
+        }
+      }
+      @keyframes templeHaloSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .temple-preloader-title {
+        color: #ffffff;
+        font-family: 'Noto Serif Bengali', 'Hind Siliguri', 'Lora', serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin: 0 0 8px 0;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      }
+      .temple-preloader-subtitle {
+        color: rgba(255, 255, 255, 0.92);
+        font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin: 0 0 22px 0;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+      .temple-preloader-bar {
+        width: 180px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.28);
+        border-radius: 999px;
+        overflow: hidden;
+        position: relative;
+      }
+      .temple-preloader-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 45%;
+        background: #ffffff;
+        border-radius: 999px;
+        box-shadow: 0 0 10px #ffffff;
+        animation: templeProgressShimmer 1.8s ease-in-out infinite;
+      }
+      @keyframes templeProgressShimmer {
+        0% { left: -45%; }
+        50% { left: 40%; width: 60%; }
+        100% { left: 100%; width: 45%; }
+      }
+    </style>
   </head>
   <body>
+    <!-- Sacred Om Loading Screen (#FF7722 Background) -->
+    <div id="temple-preloader" class="temple-preloader" aria-label="Loading Sri Sri Krishna Temple">
+      <div class="temple-preloader-inner">
+        <div class="temple-om-wrapper">
+          <div class="temple-om-halo"></div>
+          <img src="/assets/img/om.svg" alt="Sacred Om" class="temple-om-symbol" width="110" height="110" />
+        </div>
+        <h1 class="temple-preloader-title">শ্রী শ্রী কৃষ্ণ মহা মন্দির</h1>
+        <p class="temple-preloader-subtitle">হরে কৃষ্ণ হরে কৃষ্ণ কৃষ্ণ কৃষ্ণ হরে হরে</p>
+        <div class="temple-preloader-bar">
+          <div class="temple-preloader-progress"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var startTime = Date.now();
+        var minDisplayTime = 600;
+        var dismissed = false;
+        function hidePreloader() {
+          if (dismissed) return;
+          var preloader = document.getElementById('temple-preloader');
+          if (!preloader) return;
+          var elapsed = Date.now() - startTime;
+          var remaining = Math.max(0, minDisplayTime - elapsed);
+          setTimeout(function () {
+            dismissed = true;
+            preloader.classList.add('fade-out');
+            setTimeout(function () {
+              if (preloader && preloader.parentNode) {
+                preloader.parentNode.removeChild(preloader);
+              }
+            }, 650);
+          }, remaining);
+        }
+        window.addEventListener('load', hidePreloader);
+        setTimeout(hidePreloader, 3500);
+        window.__hideTemplePreloader = hidePreloader;
+      })();
+    </script>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

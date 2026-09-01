@@ -248,3 +248,13 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #ae4427;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   TEMPLE PRELOADER & LOADING SCREEN ANIMATIONS
+═══════════════════════════════════════════════════════════ */
+@keyframes templeProgressShimmer {
+  0% { left: -45%; width: 45%; }
+  50% { left: 35%; width: 60%; }
+  100% { left: 100%; width: 45%; }
+}
+

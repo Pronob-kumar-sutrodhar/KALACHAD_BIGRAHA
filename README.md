@@ -128,6 +128,4 @@ See detailed design docs:
 
 ---
 
-## 🔑 Default Admin Account (after seeding)
-- **Email**: admin@krishnatemple.com
-- **Password**: admin123
+

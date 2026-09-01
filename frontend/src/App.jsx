@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { LanguageProvider } from './context/LanguageContext'
@@ -40,6 +41,13 @@ import AdminSettingsPage from './pages/admin/AdminSettingsPage'
 function AppContent() {
   const location = useLocation()
   const isAdminRoute = location.pathname.startsWith('/admin')
+
+  useEffect(() => {
+    // Notify window preloader that React app is mounted and ready
+    if (typeof window !== 'undefined' && typeof window.__hideTemplePreloader === 'function') {
+      window.__hideTemplePreloader()
+    }
+  }, [])
 
   return (
     <>
