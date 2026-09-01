@@ -194,131 +194,125 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ── Integrated Glowing Developer Showcase Card (Very little space after main content) ── */}
-        <div className="mt-8 rounded-2xl bg-black/40 backdrop-blur-xl border border-white/15 p-6 sm:p-8 shadow-[0_0_40px_rgba(212,175,55,0.15)] hover:shadow-[0_0_60px_rgba(212,175,55,0.28)] transition-all duration-500">
+        {/* ── Integrated Glowing Developer Showcase Card (Compact & Slim Version) ── */}
+        <div className="mt-6 rounded-xl bg-black/50 backdrop-blur-md border border-white/15 p-4 sm:p-5 shadow-[0_0_25px_rgba(212,175,55,0.12)] hover:shadow-[0_0_35px_rgba(212,175,55,0.22)] transition-all duration-300">
           {/* Top Pill / Status */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-white/10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-temple-gold/10 border border-temple-gold/40 text-temple-gold text-[11px] font-semibold uppercase tracking-widest shadow-[0_0_15px_rgba(212,175,55,0.25)]">
-              <FaCode className="text-xs animate-bounce" />
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10 text-[10px]">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-temple-gold/10 border border-temple-gold/40 text-temple-gold font-semibold uppercase tracking-wider">
+              <FaCode className="text-[10px]" />
               <span>{language === 'bn' ? 'ওয়েবসাইট স্থপতি ও ডেভেলপার' : 'Website Architect & Lead Developer'}</span>
             </div>
 
-            <div className="flex items-center gap-2 text-xs text-emerald-400 font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <div className="flex items-center gap-1.5 text-emerald-400 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
               <span>Available for Global Engineering Projects</span>
             </div>
           </div>
 
           {/* Main Info Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center pt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center pt-3.5">
             {/* Left Column: Developer Profile */}
-            <div className="lg:col-span-7 space-y-3.5">
+            <div className="lg:col-span-7 space-y-2">
               <div className="space-y-0.5">
-                <span className="text-[11px] text-white/60 tracking-wider uppercase font-semibold block">
+                <span className="text-[9px] text-white/50 tracking-widest uppercase font-semibold block">
                   Crafted with Excellence By
                 </span>
-                <h3 className="font-lora text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-temple-gold via-orange-200 to-amber-400 tracking-wide leading-tight drop-shadow-[0_0_20px_rgba(212,175,55,0.5)]">
+                <h3 className="font-lora text-lg sm:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-temple-gold via-orange-200 to-amber-400 tracking-wide leading-tight drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]">
                   PRONOB KUMAR SUTRODHAR
                 </h3>
               </div>
 
               {/* Education & Role Badges */}
-              <div className="flex flex-wrap gap-2">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-white/90 text-xs font-medium">
+              <div className="flex flex-wrap gap-1.5">
+                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/90 text-[10px] font-medium">
                   <FaGraduationCap className="text-temple-gold text-xs shrink-0" />
                   <span>B.Sc. in Electrical and Computer Engineering</span>
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-white/90 text-xs font-medium">
+                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/90 text-[10px] font-medium">
                   <FaLaptopCode className="text-cyan-400 text-xs shrink-0" />
                   <span>Full-Stack Cloud & Web Engineer</span>
                 </div>
               </div>
 
-              <p className="text-white/70 text-xs leading-relaxed max-w-xl">
-                Specialized in architecting high-performance web applications, modern responsive UI/UX, robust RESTful APIs, cloud deployments, and scalable database systems with dedication and precision.
-              </p>
-
               {/* Tech Stack Pills */}
-              <div className="flex items-center gap-3 pt-1 text-white/60 text-xs">
-                <span className="font-semibold text-white/40 uppercase tracking-wider text-[10px]">Built With:</span>
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="flex items-center gap-1 hover:text-cyan-400 transition-colors" title="React.js"><SiReact className="text-cyan-400" /> <span className="text-[11px]">React</span></span>
-                  <span className="flex items-center gap-1 hover:text-green-500 transition-colors" title="Node.js"><SiNodedotjs className="text-green-500" /> <span className="text-[11px]">Node.js</span></span>
-                  <span className="flex items-center gap-1 hover:text-emerald-400 transition-colors" title="MongoDB"><SiMongodb className="text-emerald-400" /> <span className="text-[11px]">MongoDB</span></span>
-                  <span className="flex items-center gap-1 hover:text-sky-400 transition-colors" title="Tailwind CSS"><SiTailwindcss className="text-sky-400" /> <span className="text-[11px]">Tailwind</span></span>
+              <div className="flex items-center gap-2 pt-0.5 text-white/50 text-[10px]">
+                <span className="font-semibold text-white/40 uppercase tracking-wider text-[9px]">Stack:</span>
+                <div className="flex items-center gap-2.5 text-[11px]">
+                  <span className="flex items-center gap-1 text-cyan-400" title="React.js"><SiReact /> <span className="text-[10px] text-white/70">React</span></span>
+                  <span className="flex items-center gap-1 text-green-500" title="Node.js"><SiNodedotjs /> <span className="text-[10px] text-white/70">Node.js</span></span>
+                  <span className="flex items-center gap-1 text-emerald-400" title="MongoDB"><SiMongodb /> <span className="text-[10px] text-white/70">MongoDB</span></span>
+                  <span className="flex items-center gap-1 text-sky-400" title="Tailwind CSS"><SiTailwindcss /> <span className="text-[10px] text-white/70">Tailwind</span></span>
                 </div>
               </div>
             </div>
 
             {/* Right Column: Glowing Action Links */}
-            <div className="lg:col-span-5 flex flex-col gap-3">
+            <div className="lg:col-span-5 flex flex-col gap-2">
               {/* WhatsApp Button */}
               <a
                 href="https://wa.me/8801756964612"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-emerald-950/60 to-emerald-900/30 border border-emerald-500/30 hover:border-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.35)] transition-all duration-300"
+                className="group flex items-center justify-between py-1.5 px-3 rounded-lg bg-emerald-950/40 border border-emerald-500/30 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400 text-lg group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-black transition-all shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm shrink-0 group-hover:bg-emerald-500 group-hover:text-black transition-colors">
                     <FaWhatsapp />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-emerald-400 tracking-wider block">
+                    <span className="text-[9px] uppercase font-bold text-emerald-400 tracking-wider block">
                       Direct WhatsApp
                     </span>
-                    <span className="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-200 transition-colors font-mono">
+                    <span className="text-xs font-bold text-white group-hover:text-emerald-200 font-mono">
                       +880 1756964612
                     </span>
                   </div>
                 </div>
-                <FaExternalLinkAlt className="text-xs text-emerald-400/60 group-hover:text-emerald-300 group-hover:translate-x-1 transition-all" />
+                <FaExternalLinkAlt className="text-[10px] text-emerald-400/60 group-hover:text-emerald-300 group-hover:translate-x-0.5 transition-transform" />
               </a>
 
               {/* Email Contact Button */}
               <a
                 href="mailto:kpronob74@gmail.com"
-                className="group relative flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-orange-950/60 to-orange-900/30 border border-orange-500/30 hover:border-orange-400 hover:shadow-[0_0_30px_rgba(249,115,22,0.35)] transition-all duration-300"
+                className="group flex items-center justify-between py-1.5 px-3 rounded-lg bg-orange-950/40 border border-orange-500/30 hover:border-orange-400 hover:shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-orange-500/20 border border-orange-400/50 flex items-center justify-center text-orange-400 text-base group-hover:scale-110 group-hover:bg-orange-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(249,115,22,0.4)]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-md bg-orange-500/20 text-orange-400 flex items-center justify-center text-xs shrink-0 group-hover:bg-orange-500 group-hover:text-white transition-colors">
                     <FaEnvelope />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-orange-400 tracking-wider block">
+                    <span className="text-[9px] uppercase font-bold text-orange-400 tracking-wider block">
                       Official Email
                     </span>
-                    <span className="text-xs sm:text-sm font-bold text-white group-hover:text-orange-200 transition-colors">
+                    <span className="text-xs font-bold text-white group-hover:text-orange-200 truncate max-w-[200px]">
                       kpronob74@gmail.com
                     </span>
                   </div>
                 </div>
-                <FaExternalLinkAlt className="text-xs text-orange-400/60 group-hover:text-orange-300 group-hover:translate-x-1 transition-all" />
+                <FaExternalLinkAlt className="text-[10px] text-orange-400/60 group-hover:text-orange-300 group-hover:translate-x-0.5 transition-transform" />
               </a>
 
-              {/* Live Portfolio Button (Featured Glowing Action) */}
+              {/* Live Portfolio Button */}
               <a
                 href="https://portfolio-steel-nu-kpv23i024a.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-temple-gold/20 via-amber-500/20 to-orange-600/30 border-2 border-temple-gold hover:border-amber-300 hover:shadow-[0_0_40px_rgba(212,175,55,0.6)] transition-all duration-300 transform hover:-translate-y-0.5"
+                className="group flex items-center justify-between py-1.5 px-3 rounded-lg bg-gradient-to-r from-temple-gold/15 to-amber-500/20 border border-temple-gold hover:border-amber-300 hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-temple-gold text-slate-900 flex items-center justify-center text-base font-bold group-hover:scale-110 transition-all shadow-[0_0_20px_rgba(212,175,55,0.8)]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-md bg-temple-gold text-slate-900 flex items-center justify-center text-xs font-bold shrink-0">
                     <FaGlobe />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-temple-gold tracking-widest block">
+                    <span className="text-[9px] uppercase font-bold text-temple-gold tracking-wider block">
                       Live Portfolio & Works
                     </span>
-                    <span className="text-xs sm:text-sm font-extrabold text-white group-hover:text-temple-gold transition-colors flex items-center gap-1">
+                    <span className="text-xs font-bold text-white group-hover:text-temple-gold">
                       Explore Pronob's Portfolio
                     </span>
                   </div>
                 </div>
-                <div className="w-7 h-7 rounded-full bg-temple-gold/20 flex items-center justify-center text-temple-gold group-hover:bg-temple-gold group-hover:text-slate-900 transition-all">
-                  <FaExternalLinkAlt className="text-[10px]" />
-                </div>
+                <FaExternalLinkAlt className="text-[10px] text-temple-gold group-hover:translate-x-0.5 transition-transform" />
               </a>
             </div>
           </div>
