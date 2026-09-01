@@ -55,9 +55,14 @@ apiRouter.use('/payment', paymentRoutes);
 apiRouter.use('/contact', contactRoutes);
 apiRouter.use('/settings', settingRoutes);
 
+// Health check endpoints for Render, monitoring & load balancers
+apiRouter.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', uptime: process.uptime(), timestamp: new Date() });
+});
+
 apiRouter.get('/', (req, res) => {
   res.json({
-    message: 'Sri Sri Krishna Mega Temple Serverless API is running live on Netlify...',
+    message: 'Sri Sri Krishna Mega Temple API is running...',
     status: 'online',
     timestamp: new Date(),
   });
@@ -67,7 +72,11 @@ apiRouter.get('/', (req, res) => {
 app.use('/api', apiRouter);
 app.use('/.netlify/functions/api', apiRouter);
 
-// Health check
+// Root Health check
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', uptime: process.uptime(), timestamp: new Date() });
+});
+
 app.get('/', (req, res) => {
   res.json({
     message: 'Sri Sri Krishna Mega Temple API is running...',
