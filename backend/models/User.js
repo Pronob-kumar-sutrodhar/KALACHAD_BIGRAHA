@@ -1,4 +1,4 @@
-﻿const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
@@ -39,9 +39,12 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// Instance method: compare entered password with stored hash
+// Instance method: compare entered password with stored hash (supports bcrypt hash and plain text)
 userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  if (this.password && (this.password.startsWith('$2a$') || this.password.startsWith('$2b$'))) {
+    return await bcrypt.compare(enteredPassword, this.password);
+  }
+  return enteredPassword === this.password;
 };
 
 const User = mongoose.model('User', userSchema);

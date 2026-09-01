@@ -475,8 +475,16 @@ const importData = async () => {
 
     console.log('Previous database collections cleared.'.yellow);
 
-    // Insert Users
-    const createdUsers = await User.insertMany(users);
+    // Insert Users (properly hashed with bcrypt)
+    const bcrypt = require('bcryptjs');
+    const hashedUsers = await Promise.all(
+      users.map(async (u) => {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(u.password, salt);
+        return { ...u, password: hashedPassword };
+      })
+    );
+    const createdUsers = await User.insertMany(hashedUsers);
     const adminUser = createdUsers[0]._id;
 
     // Attach user reference to products reviews
