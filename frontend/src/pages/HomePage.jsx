@@ -15,6 +15,7 @@ import VolunteersSection from '../components/VolunteersSection'
 import CommitteeSection from '../components/CommitteeSection'
 import LiveBroadcastSection from '../components/LiveBroadcastSection'
 import InstagramSection from '../components/InstagramSection'
+import DeveloperSection from '../components/DeveloperSection'
 import DonationCard from '../components/DonationCard'
 import BlogCard from '../components/BlogCard'
 import QuickDonateModal from '../components/QuickDonateModal'
@@ -246,6 +247,9 @@ export default function HomePage() {
 
       {/* 14. Instagram Darshan Gallery Grid */}
       <InstagramSection />
+
+      {/* 15. Lead Engineer & Web Architect Showcase */}
+      <DeveloperSection />
 
       {/* ── Global Interactive Modals ── */}
       <QuickDonateModal
