@@ -36,6 +36,7 @@ import AdminEventsPage from './pages/admin/AdminEventsPage'
 import AdminBlogsPage from './pages/admin/AdminBlogsPage'
 import AdminOrdersPage from './pages/admin/AdminOrdersPage'
 import AdminInquiriesPage from './pages/admin/AdminInquiriesPage'
+import api from './services/api'
 import AdminSettingsPage from './pages/admin/AdminSettingsPage'
 
 function AppContent() {
@@ -47,6 +48,8 @@ function AppContent() {
     if (typeof window !== 'undefined' && typeof window.__hideTemplePreloader === 'function') {
       window.__hideTemplePreloader()
     }
+    // Background health check & wake-up ping for Render backend
+    api.get('/health').catch(() => {})
   }, [])
 
   return (

@@ -90,6 +90,25 @@ app.get('/', (req, res) => {
 app.use(notFound);
 app.use(errorHandler);
 
+// ─── Render Keep-Alive / Anti-Sleep Self-Ping ─────────────────────────────────
+const keepAlive = () => {
+  const backendUrl = process.env.RENDER_EXTERNAL_URL || process.env.BACKEND_URL;
+  if (!backendUrl) return;
+
+  const INTERVAL = 14 * 60 * 1000; // 14 minutes (Render free tier spins down at 15 mins)
+  setInterval(() => {
+    const protocol = backendUrl.startsWith('https') ? require('https') : require('http');
+    protocol
+      .get(`${backendUrl}/health`, (res) => {
+        console.log(`[Keep-Alive] Pinged ${backendUrl}/health — Status: ${res.statusCode}`.cyan);
+      })
+      .on('error', (err) => {
+        console.warn(`[Keep-Alive] Ping warning: ${err.message}`.yellow);
+      });
+  }, INTERVAL);
+  console.log(`[Keep-Alive] Anti-sleep self-ping activated for ${backendUrl} (every 14m)`.green);
+};
+
 // ─── Start Local Server if run directly ───────────────────────────────────────
 
 if (require.main === module) {
@@ -98,6 +117,7 @@ if (require.main === module) {
     console.log(
       `Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`.yellow.bold
     );
+    keepAlive();
   });
 }
 
