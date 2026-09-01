@@ -227,16 +227,30 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Bottom Bar: Copyright & Socials ── */}
+      {/* ── Bottom Bar: Copyright, Developer Signature & Socials ── */}
       <div className="bg-black/40 border-t border-white/10 py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           {/* Copyright Notice */}
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-white/70 order-2 md:order-1">
             &copy; {new Date().getFullYear()} {language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির। সর্বস্বত্ব সংরক্ষিত।' : 'Sri Sri Kalachand Bigraha Union Central Temple. All rights reserved.'}
           </p>
 
+          {/* Developer Signature with Fine Glow */}
+          <a
+            href="https://portfolio-steel-nu-kpv23i024a.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="order-1 md:order-2 inline-flex items-center justify-center gap-1.5 sm:gap-2 font-poppins font-medium tracking-wider sm:tracking-widest text-[10px] sm:text-xs uppercase py-1.5 px-3.5 sm:px-5 rounded-full bg-white/5 backdrop-blur-xs border border-temple-gold/40 shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.8)] hover:scale-105 transition-all whitespace-nowrap select-none cursor-pointer"
+            title="View Pronob Kumar Sutradhar's Portfolio"
+          >
+            <span className="text-white/80">MADE WITH</span>
+            <FaHeart className="text-red-500 text-xs sm:text-sm animate-pulse mx-0.5 shrink-0 filter drop-shadow-[0_0_8px_rgba(239,68,68,0.9)]" />
+            <span className="text-white/80">BY</span>
+            <span className="text-temple-gold font-bold tracking-wider drop-shadow-[0_0_10px_rgba(212,175,55,0.7)]">PRONOB</span>
+          </a>
+
           {/* Social Icons */}
-          <div className="flex items-center justify-center gap-4 text-sm text-white/70">
+          <div className="order-3 flex items-center justify-center gap-4 text-sm text-white/70">
             <a href="#" aria-label="Facebook" className="hover:text-temple-gold transition-colors p-1"><FaFacebookF /></a>
             <a href="#" aria-label="Twitter" className="hover:text-temple-gold transition-colors p-1"><FaTwitter /></a>
             <a href="#" aria-label="Instagram" className="hover:text-temple-gold transition-colors p-1"><FaInstagram /></a>
