@@ -99,22 +99,29 @@ export default function PujaSection({ onBookPuja }) {
     const fetchPujas = async () => {
       try {
         const { data } = await api.get('/api/pujas')
-        if (data?.pujas?.length > 0) {
-          // Merge API data with localized fields
-          const dbPujas = data.pujas.map((p, i) => ({
-            id: p._id || i + 1,
-            _id: p._id,
-            category: p.category || 'Daily Aarti',
-            categoryBn: p.category === 'Daily Aarti' ? 'নিত্য আরতি' : p.category,
-            titleBn: p.title,
-            titleEn: p.title,
-            image: p.image || '/assets/img/puja/1.webp',
-            timingBn: p.schedule || 'প্রতিদিন ভোর ও সন্ধ্যা',
-            timingEn: p.schedule || 'Daily Morning & Evening',
-            price: Number(p.price?.replace(/[^0-9]/g, '')) || 501,
-            descBn: p.description,
-            descEn: p.description,
-          }))
+        const list = data?.pujas || (Array.isArray(data) ? data : [])
+        if (list.length > 0) {
+          const dbPujas = list.map((p, i) => {
+            const rawPrice = p.price
+            const cleanPrice = typeof rawPrice === 'number'
+              ? rawPrice
+              : Number(String(rawPrice || '').replace(/[^0-9.]/g, '')) || 501
+
+            return {
+              id: p._id || i + 1,
+              _id: p._id,
+              category: p.category || 'Daily Aarti',
+              categoryBn: p.category === 'Daily Aarti' ? 'নিত্য আরতি' : p.category,
+              titleBn: p.titleBn || p.title,
+              titleEn: p.titleEn || p.title,
+              image: p.image || '/assets/img/puja/1.webp',
+              timingBn: p.timingBn || p.schedule || 'প্রতিদিন ভোর ও সন্ধ্যা',
+              timingEn: p.timingEn || p.schedule || 'Daily Morning & Evening',
+              price: cleanPrice,
+              descBn: p.descriptionBn || p.description,
+              descEn: p.descriptionEn || p.description,
+            }
+          })
           setPujas(dbPujas)
         }
       } catch {

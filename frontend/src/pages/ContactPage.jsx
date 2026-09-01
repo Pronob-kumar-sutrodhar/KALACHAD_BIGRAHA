@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fa'
 
 export default function ContactPage() {
-  const { language } = useLanguage()
+  const { language, settings } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,6 +20,15 @@ export default function ContactPage() {
   })
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+
+  const phone = settings?.phone || '+৮৮০ ১৭০০-০০০০০০'
+  const email = settings?.email || 'info@krishnamatemple.org'
+  const address = language === 'bn'
+    ? (settings?.addressBn || 'ব্রহ্মগাছা, রায়গঞ্জ, সিরাজগঞ্জ')
+    : (settings?.addressEn || 'Brahmagacha, Raiganj, Sirajganj, Bangladesh')
+  const openingHours = language === 'bn'
+    ? (settings?.openingHoursBn || 'প্রতিদিন সকাল ৪:১৫ – রাত ৯:৩০ পর্যন্ত')
+    : (settings?.openingHoursEn || 'Daily 04:15 AM – 09:30 PM EST')
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -47,7 +56,7 @@ export default function ContactPage() {
     <div className="w-full">
       <PageBanner
         title={language === 'bn' ? 'মন্দির কর্তৃপক্ষের সাথে যোগাযোগ' : 'Contact Our Mandir'}
-        subtitle={language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির' : 'We Are Here to Guide & Assist'}
+        subtitle={language === 'bn' ? (settings?.templeNameBn || 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির') : (settings?.templeNameEn || 'Sri Sri Kalachand Bigraha Union Central Temple')}
         breadcrumb={[{ label: language === 'bn' ? 'যোগাযোগ' : 'Contact Us' }]}
       />
       <GodsTicker />
@@ -62,7 +71,7 @@ export default function ContactPage() {
             <h4 className="font-lora font-bold text-temple-primary text-lg mb-2">
               {language === 'bn' ? 'ফোন হেল্পলাইন' : 'Phone Hotline'}
             </h4>
-            <p className="text-xs sm:text-sm text-gray-600 font-semibold">+৮৮০ ১৭০০-০০০০০০</p>
+            <p className="text-xs sm:text-sm text-gray-600 font-semibold">{phone}</p>
             <p className="text-xs text-gray-500 mt-1">
               {language === 'bn' ? 'সকাল ৬:০০ – রাত ৯:০০ পর্যন্ত' : 'Available 6:00 AM – 9:00 PM EST'}
             </p>
@@ -75,7 +84,7 @@ export default function ContactPage() {
             <h4 className="font-lora font-bold text-temple-primary text-lg mb-2">
               {language === 'bn' ? 'ইমেইল যোগাযোগ' : 'Email Office'}
             </h4>
-            <p className="text-xs sm:text-sm text-gray-600 font-semibold">info@krishnamatemple.org</p>
+            <p className="text-xs sm:text-sm text-gray-600 font-semibold">{email}</p>
             <p className="text-xs text-gray-500 mt-1">
               {language === 'bn' ? '২৪ ঘণ্টার মধ্যে উত্তর দেওয়া হয়' : 'Responses within 24 hours'}
             </p>
@@ -89,7 +98,7 @@ export default function ContactPage() {
               {language === 'bn' ? 'মন্দিরের ঠিকানা' : 'Temple Location'}
             </h4>
             <p className="text-xs sm:text-sm text-gray-600 font-semibold">
-              {language === 'bn' ? 'ব্রহ্মগাছা, রায়গঞ্জ, সিরাজগঞ্জ' : 'Brahmagacha, Raiganj, Sirajganj, Bangladesh'}
+              {address}
             </p>
             <p className="text-xs text-gray-500 mt-1">
               {language === 'bn' ? 'বিনামূল্যে পার্কিং সুবিধা রয়েছে' : 'Complimentary Parking Area'}
@@ -104,10 +113,7 @@ export default function ContactPage() {
               {language === 'bn' ? 'দর্শন সময়সূচী' : 'Visiting Hours'}
             </h4>
             <p className="text-xs sm:text-sm text-gray-600 font-semibold">
-              {language === 'bn' ? 'ভোর ৪:১৫ – দুপুর ১:০০' : '04:15 AM – 01:00 PM'}
-            </p>
-            <p className="text-xs text-gray-500 mt-1">
-              {language === 'bn' ? 'বিকাল ৪:৩০ – রাত ৯:০০' : '04:30 PM – 09:00 PM'}
+              {openingHours}
             </p>
           </div>
         </div>

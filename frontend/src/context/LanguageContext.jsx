@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import api from '../services/api'
 
 const LanguageContext = createContext()
 
@@ -204,6 +205,22 @@ export function LanguageProvider({ children }) {
   const [language, setLanguageState] = useState(() => {
     return localStorage.getItem('temple_lang') || 'bn' // Bengali default
   })
+  const [settings, setSettings] = useState(null)
+
+  const fetchSettings = async () => {
+    try {
+      const res = await api.get('/api/settings')
+      if (res.data) {
+        setSettings(res.data)
+      }
+    } catch {
+      // Fallback
+    }
+  }
+
+  useEffect(() => {
+    fetchSettings()
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('temple_lang', language)
@@ -221,6 +238,19 @@ export function LanguageProvider({ children }) {
   }
 
   const t = (key, fallback = '') => {
+    if (settings) {
+      if (key === 'site_title') {
+        return language === 'bn'
+          ? (settings.templeNameBn || TRANSLATIONS.bn.site_title)
+          : (settings.templeNameEn || TRANSLATIONS.en.site_title)
+      }
+      if (key === 'mantra_ticker' && (settings.marqueeNoticeBn || settings.marqueeNoticeEn)) {
+        return language === 'bn'
+          ? (settings.marqueeNoticeBn || TRANSLATIONS.bn.mantra_ticker)
+          : (settings.marqueeNoticeEn || TRANSLATIONS.en.mantra_ticker)
+      }
+    }
+
     const langDict = TRANSLATIONS[language] || TRANSLATIONS.bn
     if (langDict && langDict[key]) {
       return langDict[key]
@@ -244,6 +274,8 @@ export function LanguageProvider({ children }) {
         t,
         formatMoney,
         isBengali: language === 'bn',
+        settings,
+        fetchSettings,
       }}
     >
       {children}

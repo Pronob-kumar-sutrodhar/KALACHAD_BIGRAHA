@@ -34,11 +34,17 @@ const RECENT_POSTS_DATA = [
 ]
 
 export default function Footer() {
-  const { language } = useLanguage()
+  const { language, t, settings } = useLanguage()
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  const phone = settings?.phone || '+৮৮০ ১৭০০-০০০০০০'
+  const email = settings?.email || 'info@krishnamatemple.org'
+  const address = language === 'bn'
+    ? (settings?.addressBn || 'ব্রহ্মগাছা, রায়গঞ্জ, সিরাজগঞ্জ')
+    : (settings?.addressEn || 'Brahmagacha, Raiganj, Sirajganj, Bangladesh')
 
   return (
     <footer className="bg-temple-primary text-white relative select-none font-poppins" aria-label="Temple Footer">
@@ -53,10 +59,10 @@ export default function Footer() {
               </div>
               <div>
                 <span className="font-lora text-lg sm:text-xl font-bold text-white block">
-                  {language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির' : 'Sri Sri Kalachand Bigraha Union Central Temple'}
+                  {t('site_title')}
                 </span>
                 <span className="text-[10px] font-semibold tracking-[2px] uppercase text-temple-gold block">
-                  {language === 'bn' ? 'সনাতন ধর্ম সেবাশ্রম' : 'Sanatan Dharma Central Mandir'}
+                  {t('site_tagline')}
                 </span>
               </div>
             </div>
@@ -70,15 +76,15 @@ export default function Footer() {
             <div className="space-y-2.5 pt-2 text-xs text-white/85">
               <div className="flex items-center gap-3">
                 <FaPhoneAlt className="text-temple-gold text-xs shrink-0" />
-                <a href="tel:+8801700000000" className="hover:text-temple-gold transition-colors">+৮৮০ ১৭০০-০০০০০০</a>
+                <a href={`tel:${phone.replace(/[^0-9+]/g, '')}`} className="hover:text-temple-gold transition-colors">{phone}</a>
               </div>
               <div className="flex items-center gap-3">
                 <FaEnvelope className="text-temple-gold text-xs shrink-0" />
-                <a href="mailto:info@krishnamatemple.org" className="hover:text-temple-gold transition-colors">info@krishnamatemple.org</a>
+                <a href={`mailto:${email}`} className="hover:text-temple-gold transition-colors">{email}</a>
               </div>
               <div className="flex items-start gap-3">
                 <FaMapMarkerAlt className="text-temple-gold text-xs shrink-0 mt-0.5" />
-                <span>{language === 'bn' ? 'ব্রহ্মগাছা, রায়গঞ্জ, সিরাজগঞ্জ' : 'Brahmagacha, Raiganj, Sirajganj, Bangladesh'}</span>
+                <span>{address}</span>
               </div>
             </div>
           </div>

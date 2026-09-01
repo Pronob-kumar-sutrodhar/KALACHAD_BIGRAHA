@@ -103,11 +103,13 @@ export default function HomePage() {
           api.get('/api/donations?limit=3'),
           api.get('/api/blogs?limit=3'),
         ])
-        if (donRes.status === 'fulfilled' && donRes.value.data?.donations?.length) {
-          setDonations(donRes.value.data.donations)
+        if (donRes.status === 'fulfilled') {
+          const list = donRes.value.data?.donations || (Array.isArray(donRes.value.data) ? donRes.value.data : [])
+          if (list.length > 0) setDonations(list)
         }
-        if (blogRes.status === 'fulfilled' && blogRes.value.data?.blogs?.length) {
-          setBlogs(blogRes.value.data.blogs)
+        if (blogRes.status === 'fulfilled') {
+          const list = blogRes.value.data?.blogs || (Array.isArray(blogRes.value.data) ? blogRes.value.data : [])
+          if (list.length > 0) setBlogs(list)
         }
       } catch {
         // Fallback already set in Bengali

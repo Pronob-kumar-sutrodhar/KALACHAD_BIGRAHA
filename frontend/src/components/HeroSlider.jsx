@@ -21,12 +21,12 @@ export default function HeroSlider({ onDonateClick }) {
   }, [])
 
   const slide1Title = language === 'bn'
-    ? (settings?.heroSlide1TitleBn || 'আত্মার পরম শান্তি ও\nভক্তির পুণ্যভূমি')
-    : (settings?.heroSlide1TitleEn || 'Strength lies not in the body,\nbut in the spirit.')
+    ? (settings?.heroSlide1TitleBn || 'শ্রী শ্রী কালাচাঁদ বিগ্রহ পরম ধাম ও\nঅখণ্ড হরিনাম সংকীর্তন')
+    : (settings?.heroSlide1TitleEn || 'Sri Sri Kalachand Bigraha\nSanctuary of Peace & Devotion')
 
   const slide1Subtitle = language === 'bn'
-    ? (settings?.heroSlide1SubtitleBn || 'পরম করুণাময় শ্রী শ্রী রাধাকৃষ্ণ')
-    : (settings?.heroSlide1SubtitleEn || 'Krishna Embodies Divine Love')
+    ? (settings?.heroSlide1SubtitleBn || 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দির')
+    : (settings?.heroSlide1SubtitleEn || 'Sri Sri Kalachand Bigraha Union Central Temple')
 
   const slides = [
     {
@@ -39,10 +39,10 @@ export default function HeroSlider({ onDonateClick }) {
     },
     {
       id: 2,
-      subtitle: language === 'bn' ? 'নিত্য মঙ্গল আরতি ও বেদ পাঠ' : 'Krishna Inspires Eternal Devotion',
-      title: language === 'bn' ? 'শ্রীকৃষ্ণের চরণে সমর্পণে\nপরম মোক্ষ লাভ' : 'Growth demands stepping beyond\nyour comfort zone.',
+      subtitle: language === 'bn' ? 'নিত্য মঙ্গল আরতি ও বেদ পাঠ' : 'Sacred Aarti & Vedic Chanting',
+      title: language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহের চরণে\nপরম ভক্তি ও শান্তি' : 'Eternal Bliss at the Lotus Feet\nof Sri Sri Kalachand Bigraha',
       image: '/assets/img/banner/s4.webp',
-      primaryBtn: { text: language === 'bn' ? 'আসন্ন মহোৎসব' : 'Book Daily Puja', link: '/events' },
+      primaryBtn: { text: language === 'bn' ? 'আসন্ন মহোৎসব' : 'Upcoming Festivals', link: '/events' },
       secondaryBtn: { text: language === 'bn' ? 'মন্দির স্টোর' : 'Temple Store', link: '/shop' },
     },
   ]

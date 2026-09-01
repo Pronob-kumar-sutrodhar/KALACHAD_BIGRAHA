@@ -9,7 +9,6 @@ import {
 } from 'react-icons/fa'
 
 export default function AdminSettingsPage() {
-  const { language } = useLanguage()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [formData, setFormData] = useState({
@@ -29,6 +28,8 @@ export default function AdminSettingsPage() {
     heroSlide1SubtitleBn: 'শ্রী শ্রী কালাচাঁদ বিগ্রহ ইউনিয়ন কেন্দ্রীয় মন্দিরে আপনাকে স্বাগতম',
     heroSlide1SubtitleEn: 'Welcome to Sri Sri Kalachand Bigraha Union Central Temple',
   })
+
+  const { language, fetchSettings: refreshGlobalSettings } = useLanguage()
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -50,6 +51,7 @@ export default function AdminSettingsPage() {
     setSaving(true)
     try {
       await api.put('/api/settings', formData)
+      if (refreshGlobalSettings) refreshGlobalSettings()
       toast.success(language === 'bn' ? 'মন্দির সেটিংস সফলভাবে সংরক্ষিত হয়েছে!' : 'Settings saved successfully!')
     } catch {
       toast.error('Failed to save settings')

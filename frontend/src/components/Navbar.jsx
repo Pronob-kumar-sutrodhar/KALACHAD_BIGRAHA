@@ -20,7 +20,7 @@ export default function Navbar() {
 
   const { cartItems, removeFromCart, cartCount, cartTotal } = useCart()
   const { user, logout } = useAuth()
-  const { language, toggleLanguage, t, formatMoney } = useLanguage()
+  const { language, toggleLanguage, t, formatMoney, settings } = useLanguage()
   const navigate = useNavigate()
   const location = useLocation()
   const cartRef = useRef(null)
@@ -126,13 +126,13 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between">
           {/* Left: Phone & Email */}
           <div className="flex items-center gap-6 text-white/85">
-            <a href="tel:+8801700000000" className="flex items-center gap-2 hover:text-temple-gold transition-colors">
+            <a href={`tel:${(settings?.phone || '+8801700000000').replace(/[^0-9+]/g, '')}`} className="flex items-center gap-2 hover:text-temple-gold transition-colors">
               <FaPhoneAlt className="text-temple-accent text-[10px]" />
-              <span>+৮৮০ ১৭০০-০০০০০০</span>
+              <span>{settings?.phone || '+৮৮০ ১৭০০-০০০০০০'}</span>
             </a>
-            <a href="mailto:info@krishnamatemple.org" className="flex items-center gap-2 hover:text-temple-gold transition-colors">
+            <a href={`mailto:${settings?.email || 'info@krishnamatemple.org'}`} className="flex items-center gap-2 hover:text-temple-gold transition-colors">
               <FaEnvelope className="text-temple-accent text-[10px]" />
-              <span>info@krishnamatemple.org</span>
+              <span>{settings?.email || 'info@krishnamatemple.org'}</span>
             </a>
           </div>
 

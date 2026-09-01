@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaPlay, FaTimes, FaOm, FaCircle, FaClock, FaCalendarAlt } from 'react-icons/fa'
 import { useLanguage } from '../context/LanguageContext'
+import api from '../services/api'
 
 const AARTI_SCHEDULE_DATA = [
   {
     nameBn: 'মঙ্গল আরতি',
     nameEn: 'Mangala Aarti',
     time: '০৪:১৫ ভোর',
-    descBn: 'শ্রীকৃষ্ণের দিব্য জাগরণ ও মাখন-মিশ্রি ভোগ নিবেদন',
+    descBn: 'শ্রী শ্রী কালাচাঁদ বিগ্রহের দিব্য জাগরণ ও মাখন-মিশ্রি ভোগ নিবেদন',
     descEn: 'Awakening darshan & sweet butter-mishri offering',
   },
   {
@@ -43,13 +44,48 @@ const AARTI_SCHEDULE_DATA = [
 const PAST_DISCOURSES_DATA = [
   { id: 1, titleBn: 'শ্রীমদ্ভগবদ্গীতা দ্বিতীয় অধ্যায়: নিত্য অবিনাশী আত্মা', titleEn: 'Bhagavad Gita Chapter 2: The Eternal Soul', duration: '৪৫ মিনিট', date: '১২ আগস্ট, ২০২৬', img: '/assets/img/video-gallery/1.webp', videoId: 'TKnufs85hXk' },
   { id: 2, titleBn: 'ভক্তিযোগ ও নিঃস্বার্থ প্রেমের পরম পথ', titleEn: 'Bhakti Yoga & The Way of Unconditional Love', duration: '৫২ মিনিট', date: '০৮ আগস্ট, ২০২৬', img: '/assets/img/video-gallery/2.webp', videoId: 'TKnufs85hXk' },
-  { id: 3, titleBn: 'শ্রীমতী রাধারাণীর প্রেম ও মহিমা ব্যাখ্যা', titleEn: 'Significance of Sri Radha Ashtami Celebrations', duration: '৩৮ মিনিট', date: '৩০ জুলাই, ২০২৬', img: '/assets/img/video-gallery/3.webp', videoId: 'TKnufs85hXk' },
+  { id: 3, titleBn: 'শ্রী শ্রী কালাচাঁদ বিগ্রহের লীলা ও মাহাত্ম্য', titleEn: 'Glories & Pastimes of Sri Sri Kalachand Bigraha', duration: '৩৮ মিনিট', date: '৩০ জুলাই, ২০২৬', img: '/assets/img/video-gallery/3.webp', videoId: 'TKnufs85hXk' },
   { id: 4, titleBn: 'সন্ধ্যা ভজন ও বাঁশির সুরে আত্মধ্যান', titleEn: 'Evening Bhajan Sandhya & Flute Meditation', duration: '৬০ মিনিট', date: '২৪ জুলাই, ২০২৬', img: '/assets/img/video-gallery/4.webp', videoId: 'TKnufs85hXk' },
 ]
 
 export default function LiveBroadcastSection() {
   const [activeVideo, setActiveVideo] = useState(null)
+  const [settings, setSettings] = useState(null)
   const { language } = useLanguage()
+
+  useEffect(() => {
+    let isMounted = true
+    api.get('/api/settings')
+      .then((res) => {
+        if (isMounted && res.data) setSettings(res.data)
+      })
+      .catch(() => {})
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  const handlePlayLiveStream = () => {
+    if (settings?.liveStreamUrl) {
+      setActiveVideo(settings.liveStreamUrl)
+    } else {
+      setActiveVideo('https://www.youtube.com/embed/TKnufs85hXk?autoplay=1')
+    }
+  }
+
+  const getEmbedUrl = (src) => {
+    if (!src) return ''
+    if (src.startsWith('http://') || src.startsWith('https://')) {
+      if (src.includes('youtube.com/embed/')) return src.includes('autoplay=1') ? src : `${src}?autoplay=1`
+      const match = src.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/)
+      if (match && match[1]) {
+        return `https://www.youtube.com/embed/${match[1]}?autoplay=1`
+      }
+      return src
+    }
+    return `https://www.youtube.com/embed/${src}?autoplay=1`
+  }
 
   return (
     <section className="py-20 lg:py-24 bg-white font-poppins" aria-label="Live Darshan & Aarti Broadcast">
@@ -65,8 +101,8 @@ export default function LiveBroadcastSection() {
           </h2>
           <p className="text-gray-500 text-sm">
             {language === 'bn'
-              ? 'বিশ্বের যেকোনো প্রান্ত থেকে শ্রী শ্রী রাধাকৃষ্ণের নিত্য দর্শন ও আরতিতে যুক্ত হোন।'
-              : 'Connect from anywhere in the world and take divine darshan of Sri Radha Krishna Vigraha in real time.'}
+              ? 'বিশ্বের যেকোনো প্রান্ত থেকে শ্রী শ্রী কালাচাঁদ বিগ্রহের নিত্য দর্শন ও আরতিতে যুক্ত হোন।'
+              : 'Connect from anywhere in the world and take divine darshan of Sri Sri Kalachand Bigraha in real time.'}
           </p>
         </div>
 
@@ -91,7 +127,7 @@ export default function LiveBroadcastSection() {
 
               {/* Play Button */}
               <button
-                onClick={() => setActiveVideo('TKnufs85hXk')}
+                onClick={handlePlayLiveStream}
                 aria-label="Play Live Darshan Video"
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-temple-accent hover:bg-temple-primary text-white rounded-full flex items-center justify-center text-2xl shadow-2xl transition-all duration-300 hover:scale-110 cursor-pointer group-hover:ring-8 group-hover:ring-white/20"
               >
@@ -101,10 +137,10 @@ export default function LiveBroadcastSection() {
               {/* Title & Timing on Video */}
               <div className="absolute bottom-5 left-5 right-5 text-white">
                 <span className="text-[11px] font-semibold text-temple-gold uppercase tracking-[2px] block">
-                  {language === 'bn' ? 'শ্রী শ্রী রাধাকৃষ্ণ প্রধান গর্ভগৃহ' : 'Main Sanctum Sanctorum'}
+                  {language === 'bn' ? 'শ্রী শ্রী কালাচাঁদ বিগ্রহ প্রধান গর্ভগৃহ' : 'Main Sanctum Sanctorum'}
                 </span>
                 <h3 className="font-lora text-xl sm:text-2xl font-bold leading-snug">
-                  {language === 'bn' ? 'নিত্য পঞ্চামৃত অভিষেক ও হরিনাম সংকীর্তন' : 'Akhand Kirtan & Evening Aarti Live'}
+                  {language === 'bn' ? 'নিত্য পঞ্চামৃত অভিষেক ও হরিনাম সংকীর্তন' : 'Akhand Kirtan & Daily Aarti Live'}
                 </h3>
               </div>
             </div>
@@ -159,7 +195,7 @@ export default function LiveBroadcastSection() {
             {PAST_DISCOURSES_DATA.map((item) => (
               <div
                 key={item.id}
-                onClick={() => setActiveVideo(item.videoId)}
+                onClick={() => setActiveVideo(`https://www.youtube.com/embed/${item.videoId}?autoplay=1`)}
                 className="group bg-temple-light border border-gray-200 overflow-hidden shadow-xs hover:shadow-xl transition-all cursor-pointer"
               >
                 <div className="relative aspect-video overflow-hidden bg-temple-dark">
@@ -205,7 +241,7 @@ export default function LiveBroadcastSection() {
               <FaTimes />
             </button>
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/${activeVideo}?autoplay=1`}
+              src={getEmbedUrl(activeVideo)}
               title="Temple Broadcast Video"
               className="w-full h-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
