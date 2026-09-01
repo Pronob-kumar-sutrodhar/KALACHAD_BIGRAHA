@@ -15,10 +15,16 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (email, password) => {
     const { data } = await api.post('/api/auth/login', { email, password })
+    const userData = data.user || {
+      _id: data._id,
+      name: data.name,
+      email: data.email,
+      isAdmin: Boolean(data.isAdmin),
+    }
     localStorage.setItem('token', data.token)
-    localStorage.setItem('user', JSON.stringify(data.user))
-    setUser(data.user)
-    return data
+    localStorage.setItem('user', JSON.stringify(userData))
+    setUser(userData)
+    return { ...data, user: userData }
   }, [])
 
   const register = useCallback(async (name, email, password) => {
@@ -27,10 +33,16 @@ export function AuthProvider({ children }) {
       email,
       password,
     })
+    const userData = data.user || {
+      _id: data._id,
+      name: data.name,
+      email: data.email,
+      isAdmin: Boolean(data.isAdmin),
+    }
     localStorage.setItem('token', data.token)
-    localStorage.setItem('user', JSON.stringify(data.user))
-    setUser(data.user)
-    return data
+    localStorage.setItem('user', JSON.stringify(userData))
+    setUser(userData)
+    return { ...data, user: userData }
   }, [])
 
   const logout = useCallback(() => {

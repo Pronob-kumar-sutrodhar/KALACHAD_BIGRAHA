@@ -67,7 +67,8 @@ export default function Navbar() {
       dropdown: [
         { label: t('nav_team'), href: '/team' },
         { label: t('nav_faq'), href: '/faq' },
-        { label: t('nav_login'), href: '/login' },
+        ...(user?.isAdmin ? [{ label: language === 'bn' ? '👑 অ্যাডমিন CMS প্যানেল' : '👑 Admin CMS Portal', href: '/admin' }] : []),
+        { label: user ? (language === 'bn' ? '👤 ভক্ত পোর্টাল ও প্রোফাইল' : '👤 Devotee Portal Profile') : t('nav_login'), href: '/login' },
       ],
     },
     { label: t('nav_contact'), href: '/contact' },
@@ -350,15 +351,28 @@ export default function Navbar() {
             {/* Devotee Login / Account / Admin */}
             {user ? (
               <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-temple-primary bg-orange-50 px-3 py-1.5 border border-temple-accent/30">
-                <FaUserCheck className="text-temple-accent" />
-                <span className="truncate max-w-[90px]">{user.name}</span>
                 <Link
-                  to="/admin"
-                  className="bg-temple-accent hover:bg-orange-700 text-white text-[10px] px-1.5 py-0.5 font-bold transition-colors"
+                  to="/login"
+                  className="flex items-center gap-1.5 hover:text-temple-accent transition-colors"
+                  title={language === 'bn' ? 'ভক্ত পোর্টাল প্রোফাইল দেখুন' : 'View Devotee Portal Profile'}
                 >
-                  Admin
+                  <FaUserCheck className="text-temple-accent" />
+                  <span className="truncate max-w-[100px]">{user.name}</span>
                 </Link>
-                <button onClick={logout} className="text-gray-400 hover:text-red-600 text-[10px] ml-1 cursor-pointer">
+                {user.isAdmin && (
+                  <Link
+                    to="/admin"
+                    className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-[10px] px-2 py-0.5 font-bold shadow-xs uppercase tracking-wider transition-all rounded-xs"
+                    title="Open Admin CMS"
+                  >
+                    👑 Admin
+                  </Link>
+                )}
+                <button
+                  onClick={logout}
+                  className="text-gray-400 hover:text-red-600 text-[10px] ml-1 cursor-pointer"
+                  title="Logout"
+                >
                   (লগআউট)
                 </button>
               </div>
